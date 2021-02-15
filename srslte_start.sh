@@ -6,7 +6,7 @@
 # Step 3: Start srsLTE
 
 ############################ Cleanup ###########################
-rm srslte.log
+rm srslte.log 2> /dev/null
 
 ############################ Step 1 ############################
 # Set variables
