@@ -35,7 +35,7 @@ sudo sed -i '/^dl_freq.*/d' ${FILE_CONF}
 sudo sed -ie "s/^\[rf\]/\[rf\]\ndl_freq=${DL_FREQ}/" ${FILE_CONF}
 
 # Change dl_freq in the file
-sudo sed -i "/^ul_freq.*/d' ${FILE_CONF}
+sudo sed -i '/^ul_freq.*/d' ${FILE_CONF}
 sudo sed -ie "s/^\[rf\]/\[rf\]\nul_freq=${UL_FREQ}/" ${FILE_CONF}
 
 # Set metrics - period = 0.1 seconds
