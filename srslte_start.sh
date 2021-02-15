@@ -31,7 +31,7 @@ fi
 sudo sed -ie '/^dl_ear.*/ s/./#&/' ${FILE_CONF}
 
 # Change dl_freq in the file
-sudo sed -i "/^dl_freq.*/d' ${FILE_CONF}
+sudo sed -i '/^dl_freq.*/d' ${FILE_CONF}
 sudo sed -ie "s/^\[rf\]/\[rf\]\ndl_freq=${DL_FREQ}/" ${FILE_CONF}
 
 # Change dl_freq in the file
