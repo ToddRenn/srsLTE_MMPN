@@ -6,6 +6,9 @@
 # Step 3: Start srsLTE
 
 ############################ Cleanup ###########################
+sudo pkill -x srsepc
+sudo pkill -x srsenb
+sudo pkill -x srsue
 rm srslte.log 2> /dev/null
 
 ############################ Step 1 ############################
