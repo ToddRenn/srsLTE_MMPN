@@ -28,14 +28,12 @@ fi
 sudo sed -ie '/^dl_ear.*/ s/./#&/' ${FILE_CONF}
 
 # Change dl_freq in the file
-sudo grep -q '^dl_freq' ${FILE_CONF} \
-  && sudo sed -i 's/^dl_freq/dl_freq=${DL_FREQ}/' ${FILE_CONF} \
-  || sudo sed -ie 's/\[rf\]/\[rf\]\ndl_freq=${DL_FREQ}/' ${FILE_CONF}
+sudo sed -ie "s/^dl_freq.*//: ${FILE_CONF}
+sudo sed -ie "s/^\[rf\]/\[rf\]\ndl_freq=${DL_FREQ}/" ${FILE_CONF}
 
 # Change dl_freq in the file
-sudo grep -q '^ul_freq' ${FILE_CONF} \
-  && sudo sed -i 's/^ul_freq/ul_freq=${UL_FREQ}/' ${FILE_CONF} \
-  || sudo sed -ie 's/\[rf\]/\[rf\]\ndl_freq=${UL_FREQ}/' ${FILE_CONF}
+sudo sed -ie "s/^ul_freq.*//: ${FILE_CONF}
+sudo sed -ie "s/^\[rf\]/\[rf\]\nul_freq=${UL_FREQ}/" ${FILE_CONF}
 
 # Set metrics - period = 0.1 seconds
 sudo sed -ie 's/\#metrics_csv_e.*/metrics_csv_enable=true' ${FILE_CONF}
