@@ -27,4 +27,4 @@ sudo sed -i 's/^bootsrap.*/bootstrap.servers=${KAF_IP}:9092' \
 
 ############################ Step 5 ############################
 tail -f -n0 ~/srslte.log | \
-  .${KAF_FILE}/bin/producer.sh --topic $NODE_ID --bootstrap-server=${KAF_IP}:9092
+  .${KAF_FILE}/bin/producer.sh --topic $NODE_ID --bootstrap-server=${KAF_IP}:9092 &
