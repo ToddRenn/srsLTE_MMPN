@@ -4,6 +4,16 @@
 # Step 1: Start srslte
 # Step 2: Start Kafka & Transmit data
 
-#./srslte_start.sh
-#(tail -f -n0 ~/srslte.log &)|grep -q 'NODE READY'
-#./kafka_start.sh
+############################ GLOBALS ##########################
+# Set variables
+read -p "What is this node? (UE/eNB): " NODE_TYPE
+# Convert to lower-case
+NODE_TYPE=$(echo "${NODE_TYPE}"|tr '[A-Z]' '[a-z]')
+
+############################ Step 1 ###########################
+sudo ./srslte_start.sh ${NODE_TYPE}
+# Wait until UE fully setup...
+(tail -f -n0 srslte.log &)|grep -q 'Searching'
+
+############################ Step 2 ###########################
+sudo ./kafka_start.sh ${NODE_TYPE}
