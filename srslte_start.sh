@@ -5,6 +5,9 @@
 # Step 2: Edit .conf files depending on UE/eNB selection - freq + metrics
 # Step 3: Start srsLTE
 
+############################ Cleanup ###########################
+rm srslte.log
+
 ############################ Step 1 ############################
 # Set variables
 read -p "What is this node? (UE/eNB): " NODE_TYPE
@@ -28,11 +31,11 @@ fi
 sudo sed -ie '/^dl_ear.*/ s/./#&/' ${FILE_CONF}
 
 # Change dl_freq in the file
-sudo sed -ie "s/^dl_freq.*//: ${FILE_CONF}
+sudo sed -i "/^dl_freq.*/d' ${FILE_CONF}
 sudo sed -ie "s/^\[rf\]/\[rf\]\ndl_freq=${DL_FREQ}/" ${FILE_CONF}
 
 # Change dl_freq in the file
-sudo sed -ie "s/^ul_freq.*//: ${FILE_CONF}
+sudo sed -i "/^ul_freq.*/d' ${FILE_CONF}
 sudo sed -ie "s/^\[rf\]/\[rf\]\nul_freq=${UL_FREQ}/" ${FILE_CONF}
 
 # Set metrics - period = 0.1 seconds
@@ -40,4 +43,4 @@ sudo sed -ie 's/\#metrics_csv_e.*/metrics_csv_enable=true' ${FILE_CONF}
 sudo sed -ie 's/\#metrics_p.*/metrics_period_secs=0.1' ${FILE_CONF}
 
 ############################ Step 3 ############################
-sudo srs${NODE_TYPE} &> srslte.log
+sudo srs${NODE_TYPE} &> srslte.log &
