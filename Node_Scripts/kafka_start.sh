@@ -27,9 +27,9 @@ sed -i "s/^bootsrap.*/bootstrap.servers=${KAF_IP}:9092/" \
 
 ############################ Step 5 ############################
 tail -f -n0 srslte.log | \
-  .${KAF_FILE}/bin/kafka-console-producer.sh --topic ${NODE_ID}_log --bootstrap-server=${KAF_IP}:9092 &
+  ${KAF_FILE}/bin/kafka-console-producer.sh --topic ${NODE_ID}_log --bootstrap-server=${KAF_IP}:9092 &
 
 if [[ ${1} -eq "ue" ]]; then
   tail -f -n0 /tmp/ue_metrics.csv | \
-    .${KAF_FILE}/bin/kafka-console-producer.sh --topic ${NODE_ID}_metrics --bootstrap-server=${KAF_IP}:9092 &
+    ${KAF_FILE}/bin/kafka-console-producer.sh --topic ${NODE_ID}_metrics --bootstrap-server=${KAF_IP}:9092 &
 fi
