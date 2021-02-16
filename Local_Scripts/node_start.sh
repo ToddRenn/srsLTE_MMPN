@@ -40,7 +40,7 @@ for ADDRS in "${ADDR_ENB[@]}"; do
   tput setaf 6
   echo "Connecting to eNB at ${ADDRS}..."
   tput sgr0
-  gnome-terminal --tab -- bash -ic "ssh -p22 ${ADDRS} -Y 'cd ${BASE_DIR}'; exec bash"
+  gnome-terminal --tab -- bash -ic "ssh -p22 ${ADDRS} -Y; exec bash"
 done
 
 for ADDRS in "${ADDR_UE[@]}"; do
@@ -48,5 +48,5 @@ for ADDRS in "${ADDR_UE[@]}"; do
   tput setaf 6
   echo "Connecting to UE at ${ADDRS}..."
   tput sgr0
-  gnome-terminal --tab -- bash -ic "ssh -p22 ${ADDRS} -Y 'cd ${BASE_DIR}'; exec bash"
+  gnome-terminal --tab -- bash -ic "ssh -p22 ${ADDRS} -Y; exec bash"
 done
