@@ -22,13 +22,16 @@ grep -q "${KAF_IP}" ${HOST_FILE} \
 IFS='.' read -a NODE_ID <<< $(hostname)
 
 ############################ Step 4 ############################
+echo "Changing producer.properties: bootstrap.servers=${KAF_IP}:9092"
 sed -i "s/^bootsrap.*/bootstrap.servers=${KAF_IP}:9092/" \
   ${KAF_FILE}/config/producer.properties
 
 ############################ Step 5 ############################
+Echo "Sending srslte.log to ${KAF_IP}:9092 via Kafka..."
 tail -f -n0 srslte.log | \
   ${KAF_FILE}/bin/kafka-console-producer.sh --topic ${NODE_ID}_log --bootstrap-server=${KAF_IP}:9092 &
 
+Echo "Sending ue_metrics.csv to ${KAF_IP}:9092 via Kafka..."
 if [[ ${1} -eq "ue" ]]; then
   tail -f -n0 /tmp/ue_metrics.csv | \
     ${KAF_FILE}/bin/kafka-console-producer.sh --topic ${NODE_ID}_metrics --bootstrap-server=${KAF_IP}:9092 &
