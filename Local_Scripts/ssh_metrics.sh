@@ -12,7 +12,7 @@ read -a LOC -p "UE location(s): "
 ADDR_UE=()
 ADDR_ENB=()
 for PC in "${PC[@]}"; do
-  ADDR_ENB+=( "${UNAME}@pc${PCNUM}-fort.emulab.net" )
+  ADDR_ENB+=( "${UNAME}@pc${PC}-fort.emulab.net" )
 done
 
 for LOC in "${LOC[@]}"; do
