@@ -12,11 +12,11 @@ read -a LOC -p "UE location(s): "
 ADDR_UE=()
 ADDR_ENB=()
 for PC in "${PC[@]}"; do
-  ADDR_ENB="${UNAME}@pc${PCNUM}-fort.emulab.net"
+  ADDR_ENB+=( "${UNAME}@pc${PCNUM}-fort.emulab.net" )
 done
 
 for LOC in "${LOC[@]}"; do
-  ADDR_UE="${UNAME}@nuc2.${LOC}.powderwireless.net"
+  ADDR_UE+=( "${UNAME}@nuc2.${LOC}.powderwireless.net" )
 done
 
 BASE_DIR="/proj/mmpn-PG0/"
