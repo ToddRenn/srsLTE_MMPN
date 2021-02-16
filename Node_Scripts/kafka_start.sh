@@ -31,8 +31,8 @@ Echo "Sending srslte.log to ${KAF_IP}:9092 via Kafka..."
 tail -f -n0 srslte.log | \
   ${KAF_FILE}/bin/kafka-console-producer.sh --topic ${NODE_ID}_log --bootstrap-server=${KAF_IP}:9092 &
 
-Echo "Sending ue_metrics.csv to ${KAF_IP}:9092 via Kafka..."
-if [[ ${1} -eq "ue" ]]; then
+if [[ "${1}" -eq "ue" ]]; then
+  Echo "Sending ue_metrics.csv to ${KAF_IP}:9092 via Kafka..."
   tail -f -n0 /tmp/ue_metrics.csv | \
     ${KAF_FILE}/bin/kafka-console-producer.sh --topic ${NODE_ID}_metrics --bootstrap-server=${KAF_IP}:9092 &
 fi
