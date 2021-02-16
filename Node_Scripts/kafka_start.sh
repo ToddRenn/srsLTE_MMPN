@@ -15,7 +15,7 @@ KAF_FILE="/proj/mmpn-PG1/Kafka"
 read -p "Kafka Server IP: " KAF_IP
 
 ############################ Step 2 ############################
-grep -q '^${KAF_IP}' ${HOST_FILE} \
+grep -q "${KAF_IP}" ${HOST_FILE} \
   || echo -e "${KAF_IP} \t DESKTOP-B04CIKU" >> ${HOST_FILE}
 
 ############################ Step 3 ############################
