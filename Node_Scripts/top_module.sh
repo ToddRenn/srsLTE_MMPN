@@ -6,7 +6,7 @@
 
 ############################ GLOBALS ##########################
 # Set variables
-read -p "What is this node? (UE/eNB): " NODE_TYPE
+read -p "What is this node? (EPC/eNB/UE): " NODE_TYPE
 # Convert to lower-case
 NODE_TYPE=$(echo "${NODE_TYPE}"|tr '[A-Z]' '[a-z]')
 

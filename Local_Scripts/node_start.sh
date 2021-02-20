@@ -6,6 +6,8 @@
 
 # Read/Declare vars
 read -p "POWDER username: " UNAME
+read -p "Data Center (MEB/Fort): " DATA_CTR
+DATA_CTR=$(echo "${DATA_CTR}"|tr '[A-Z]' '[a-z]')
 read -a PC -p "PC #(s): "
 read -a LOC -p "UE location(s): "
 
@@ -13,14 +15,16 @@ ADDR_UE=()
 ADDR_ENB=()
 
 for PC in "${PC[@]}"; do
-  ADDR_ENB+=( "${UNAME}@pc${PC}-fort.emulab.net" )
+  if [[ "${DATA_CTR}" -eq "fort"]]; then
+    ADDR_ENB+=( "${UNAME}@pc${PC}-fort.emulab.net" )
+  else
+    ADDR_ENB+=( "${UNAME}@pc${PC}.emulab.net" )
+  fi
 done
 
 for LOC in "${LOC[@]}"; do
   ADDR_UE+=( "${UNAME}@nuc2.${LOC}.powderwireless.net" )
 done
-
-BASE_DIR="/proj/mmpn-PG1/"
 
 # MAIN
 
