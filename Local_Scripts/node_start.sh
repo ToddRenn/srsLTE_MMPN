@@ -15,7 +15,7 @@ ADDR_UE=()
 ADDR_ENB=()
 
 for PC in "${PC[@]}"; do
-  if [[ "${DATA_CTR}" -eq "fort"]]; then
+  if [[ "${DATA_CTR}" -eq "fort" ]]; then
     ADDR_ENB+=( "${UNAME}@pc${PC}-fort.emulab.net" )
   else
     ADDR_ENB+=( "${UNAME}@pc${PC}.emulab.net" )
