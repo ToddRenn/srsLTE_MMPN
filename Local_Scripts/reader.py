@@ -9,6 +9,9 @@ import subprocess
 import sys
 import time
 
+
+c2i_filepath='~/Documents/MMPN_Repo/C2I/'
+
 def tail(thefile):
     thefile.seek(0,2) # Look at last line of thefile
 
@@ -17,23 +20,25 @@ def tail(thefile):
         if not line:            # If no new line is written, wait
             time.sleep(5)
             continue
-        if line and line.endswith('\n') # If line is written AND it's complete
-            yield line
+        #if line and line.endswith('\n') # If line is written AND it's complete
+        yield line
 
 def update_sensor(name,value):
-    args=['./utilities/smac-commander/smac-commander', 'update-sensor', \
-        '--system', '--sensor='+name, '--type=Double', '--units=Celcius', \
-        '--min-val=0', '--max-val=100', '--value='+value, 'force-enable=true']
+    global c2i_filepath
+    args=[c2i_filepath+'utilities/smac-commander/smac-commander',\
+          'update-sensor', '--system', '--sensor='+name, '--type=Double', \
+          '--units=Celcius', '--min-val=0', '--max-val=100', \
+          '--value='+value, '--force-enable=true']
 
     subprocess.run(args)
 
 def csv_reader(file):
-    metrics = csv.DictReader(tail(open(file,"rt")), delimeter=';')
+    metrics = csv.DictReader(tail(open(file,"rt")), delimiter=';')
     for row in metrics:
         for key in row.keys():
             update_sensor(key, row.get(key))
 
-def log_reader(file):
+#def log_reader(file):
     #fill this
 
 if __name__ == '__main__':
