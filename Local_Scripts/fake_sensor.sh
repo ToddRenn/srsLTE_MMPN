@@ -38,5 +38,5 @@ do
 	echo "Updating CSV..."
 	tput sgr0
 	update_csv
-	sleep 15
+	sleep 0.001
 done
