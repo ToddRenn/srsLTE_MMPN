@@ -7,23 +7,23 @@
 # Step 4: Fire up Kafka Cluster
 
 ############################ Variables #########################
-CFG_FILE = "../Kafka/config/server.properties"
+CFG_FILE="../Kafka/config/server.properties"
 
 
 ############################ Step 1 ############################
-NODE_IP = $(ifconfig eno1 | grep -Po 'inet \K[\d.]+')
+NODE_IP=$(ifconfig eno1 | grep -Po 'inet \K[\d.]+')
 
 
 ############################ Step 2 ############################
 echo "Changing server.properties..."
-sed -i "s/^bootsrap.*/bootstrap.servers=${NODE_IP}:9092/" \
+sed -i "s/^advertised.l.*/advertised.listeners=PLAINTEXT:\/\/${NODE_IP}:9092/" \
 	 ${CFG_FILE}
-sed -i "s/^zookeeper.*/zookeeper.connect=localhost:2181/" \
+sed -i "s/^zookeeper.connect=[0-9].*/zookeeper.connect=localhost:2181/" \
 	 ${CFG_FILE}
 
 
 ############################ Step 3 ############################
-../Kafka/bin/zookeeper-server-start.sh config/zookeeper.properties
+../Kafka/bin/zookeeper-server-start.sh -daemon ../Kafka/config/zookeeper.properties
 
 ############################ Step 4 ############################
-../Kafka/bin/kafka-server-start.sh config/server.properties
+../Kafka/bin/kafka-server-start.sh -daemon ../Kafka/config/server.properties
