@@ -8,11 +8,13 @@
 read -p "POWDER username: " UNAME
 read -p "Data Center (MEB/Fort): " DATA_CTR
 DATA_CTR=$(echo "${DATA_CTR}"|tr '[A-Z]' '[a-z]')
-read -a PC -p "PC #(s): "
+read -a PC -p "Expt. PC #(s): "
+read -p "Kafka Server PC#: " KAFKA_PC
 read -a LOC -p "UE location(s): "
 
 ADDR_UE=()
 ADDR_ENB=()
+ADDR_KAF="${UNAME}@pc${KAFKA_PC}.emulab.net"
 
 for PC in "${PC[@]}"; do
   if [[ "${DATA_CTR}" -eq "fort" ]]; then
@@ -54,3 +56,6 @@ for ADDRS in "${ADDR_UE[@]}"; do
   tput sgr0
   gnome-terminal --tab -- bash -ic "ssh -p22 ${ADDRS} -Y; exec bash"
 done
+# ################### STEP 2: Start Kafka Server ###############################
+ gnome-terminal --tab -- bash -ic "ssh -p22 ${ADDR_KAF}; exec bash"
+

@@ -11,9 +11,14 @@ read -p "What is this node? (EPC/eNB/UE): " NODE_TYPE
 NODE_TYPE=$(echo "${NODE_TYPE}"|tr '[A-Z]' '[a-z]')
 
 ############################ Step 1 ###########################
-sudo ./srslte_start.sh ${NODE_TYPE}
-# Wait until UE fully setup...
-(tail -f -n0 srslte.log &)|grep -q 'Searching'
-
-############################ Step 2 ###########################
-sudo ./kafka_start.sh ${NODE_TYPE}
+case ${NODE_TYPE} in
+	"epc")
+		sudo ./epc_start
+		;;
+	"ue")
+		sudo ./srslte_start ue
+		;;
+	"enb")
+		sudo ./srslte_start enb
+		;;
+esac
