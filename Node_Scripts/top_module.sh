@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # This script is the top module for node-base script workflow
-# Step 1: Start srslte
-# Step 2: Start Kafka & Transmit data
+# Step 1: Install all dependencies
+# Step 2: Start srsLTE & send metrics to Kafka
+
 
 ############################ GLOBALS ##########################
 # Set variables
@@ -11,6 +12,11 @@ read -p "What is this node? (EPC/eNB/UE): " NODE_TYPE
 NODE_TYPE=$(echo "${NODE_TYPE}"|tr '[A-Z]' '[a-z]')
 
 ############################ Step 1 ###########################
+
+sudo apt-get update
+sudo apt-get install default-jre -y
+
+############################ Step 2 ###########################
 case ${NODE_TYPE} in
 	"epc")
 		sudo ./epc_start
