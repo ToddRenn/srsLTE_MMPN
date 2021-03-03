@@ -10,7 +10,24 @@ import sys
 import time
 import json
 import requests
+import re
 from kafka import KafkaConsumer
+
+data = {
+            "hostname": "localhost",
+            "portnum": 9091,
+            "minval": 0.0,
+            "system": "true",
+            "version": "2.4",
+            "units": "Celsius",
+            "type": "Double",
+            "forceEnable": "true",
+            "maxval": 100.0,
+            "sensor": "",
+            "value": 0,
+            "command": "update-sensor",
+            "timeout": 5
+            }
 
 def tail(thefile):
     thefile.seek(0,2) # Look at last line of thefile
@@ -31,33 +48,77 @@ def update_sensor(dict_list):
         json_file.close()
         #payload = open("sensor.json")
         #r=requests.post(url, data=payload)
-def log_reader(filename):
-    log = tail(open(filename,"rt"))
-    
-    #UE Filters
-    
-    #eNB Filters
 
+def log_reader(filename):
+    log = open(filename,"rt")
+    node_name = re.match(r'''.*[/](\w*)''',filename).group(1)
+    match_dict = dict()# Dictionary of matches
+    ue_rx = []          # List of UE REGEX
+    enb_rx = []         # List of eNB REGEx
+    epc_rx = []         # List of EPC REGEX
+    ues = set()         # Set of active UEs
+    results = []        # List of SMAC-customized dictionaries
+
+    #UE Filters
+    ue_rx.append(re.compile(r'''
+                   (?P<key>(type|clock_rate|EARFCN|f_dl|f_ul|Mode|PCI|PRB|CFO|c-rnti))[=]
+                   (?P<value>-?[.\d\w]+)''', re.VERBOSE))
+
+    ue_rx.append(re.compile(r'''
+                   (?P<key>IP)[:\s]+
+                   (?P<value>[.\d]+)''', re.VERBOSE))
+    #eNB Filters
+    enb_rx.append(re.compile(r'''
+                        (?P<key>type|clock_rate|DL|UL)[=]
+                        (?P<value>[.\d\w]+)''', re.VERBOSE))
     #EPC Filters
+    epc_rx.append(re.compile(r'''
+                        (?P<key>MCC|MNC|Name|id|PLMN|TAC|S1-U Address)[:]\s+
+                        (?P<value>[.\d\w]+)''', re.VERBOSE))
+    epc_rx.append(re.compile(r'''
+                        (?P<key>IMSI)[:]\s+
+                        (?P<value>[\d]{15})''', re.VERBOSE))
+    epc_rx.append(re.compile(r'''
+                        (?P<key>^Detach)[^\d]+
+                        (?P<value>\d+)''', re.VERBOSE))
+    epc_rx.append(re.compile(r'''
+                        (?P<key>^Deleting eNB)[^\d]+
+                        (?P<value>[\d\w]+)''', re.VERBOSE))
+    # Scan through file
+    for line in log:
+        if "ue" in filename:
+            for rx in ue_rx:
+                for m in rx.finditer(line):
+                    match_dict[node_name+"_"+m.group('key')]=m.group('value')
+        elif "enb" in filename:
+            for rx in enb_rx:
+                for m in rx.finditer(line):
+                    match_dict[node_name+"_"+m.group('key')]=m.group('value')
+            if "connected" in line:
+                x=line.split()
+                ues.add(x[1])
+            if "Disconnecting" in line:
+                s=line.split('=')
+                ue_id=s[1].strip(".\n")
+                if ue_id in ues:
+                    ues.remove(ue_id)
+        elif "epc" in filename:
+            for rx in epc_rx:
+                for m in rx.finditer(line):
+                    if m.group('key') == "IMSI":
+                        ues.add(m.group('value'))
+                    elif m.group('key') == "Detach":
+                        ues.remove(m.group('value'))
+                    else:
+                        match_dict[node_name+"_"+m.group('key')]=m.group('value')
+    for key in match_dict:
+        results.append(custom_dict(key,match_dict.get(key,data))
+    update_sensor(match_dict)
+    match_dict.clear()
 
 def csv_reader(filename):
     metrics = csv.DictReader(tail(open(filename,"rt")), delimiter=';')
     dict_list = []
-    data = {
-            "hostname": "localhost",
-            "portnum": 9091,
-            "minval": 0.0,
-            "system": "true",
-            "version": "2.4",
-            "units": "Celsius",
-            "type": "Double",
-            "forceEnable": "true",
-            "maxval": 100.0,
-            "sensor": "",
-            "value": 0,
-            "command": "update-sensor",
-            "timeout": 5
-            }
 
     for row in metrics:
         for key in row.keys():
@@ -105,7 +166,7 @@ def custom_dict(key, value, data_dict):
         custom_dict["type"] = "Double";
         custom_dict["minval"] = 1.00;
         custom_dict["maxval"] = 30.00;
-    elif "ul_buff" in key or "bsr" in key:
+    elif any(x in key for x in ['ul_buff','bsr'])
         custom_dict["units"] = "Bytes";
         custom_dict["type"] = "String";
         del custom_dict["minval"]
@@ -125,16 +186,33 @@ def custom_dict(key, value, data_dict):
         custom_dict["type"] = "String";
         del custom_dict["minval"]
         del custom_dict["maxval"]
+    elif any(x in key for x in ['DL','UL','f_ul','f_dl'])
+        custom_dict["units"] = "Megahertz";
+        custom_dict["type"] = "Double";
+        custom_dict["minval"] = 0
+        custom_dict["maxval"] = 10000
+    elif "CFO" in key:
+        custom_dict["units"] = "None";
+        custom_dict["type"] = "String";
+        custom_dict["minval"] = 0
+        custom_dict["maxval"] = 10000
+        custom_dict["value"] = value + "kHz"
+    elif any(x in key for x in ['EARFCN','PRB'])
+        custom_dict["units"] = "None";
+        custom_dict["type"] = "Int";
+        custom_dict["minval"] = 0
+        custom_dict["maxval"] = 10000
     else:
         custom_dict["units"] = "None";
         custom_dict["type"] = "String";
         del custom_dict["minval"]
         del custom_dict["maxval"]
 
-      return custom_dict
+    return custom_dict
 
 if __name__ == '__main__':
     if "csv" in sys.argv[1]:
         csv_reader(sys.argv[1])
     else:
-        print('log_reader')
+        log_reader(sys.argv[1])
+
