@@ -14,8 +14,10 @@ consumer.subscribe(TOPIC)
     
 for msg in consumer:
 	if "log" in TOPIC:
-    	rd.log_reader(msg.value,TOPIC)
+		node="${TOPIC\\_log\}"
+    	rd.log_reader(msg.value,node)
     elif "csv" in TOPIC:
-    	rd.csv_reader(msg.value,TOPIC)
+		node="${TOPIC\\_csv\}"
+    	rd.csv_reader(msg.value,node)
     else:
     	print("Can't read this file-type.")

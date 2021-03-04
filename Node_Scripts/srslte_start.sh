@@ -44,17 +44,17 @@ sed -ie 's/\#metrics_p.*/metrics_period_secs=1/' ${FILE_CONF}
 ############################ Step 3 ############################
 read -p "Kafka server IP: " KAF_IP
 read -p "Node identifier: " NODE_ID
-topicName="${NODE_ID}.log"
+topicName="${NODE_ID}_log"
 
 ############################ Step 4 ############################
 server="--bootstrap-server ${KAF_IP}:9092"
-topic="--topic ${NODE_ID}.log"
+topic="--topic ${topicName}"
 kaf_cmd="../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
 sudo srs${1} &> ${topicName} | tee ${kaf_cmd}
 
 # If UE, then send the ue_metrics.csv
 if [[ ${1} -eq "ue" ]]; then
-	topic="--topic ${NODE_ID}.csv"
+	topic="--topic ${NODE_ID}_csv"
 	kaf_cmd="../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
 	tail -f -n0 /tmp/ue_metrics.csv | ${kaf_cmd}
 fi
