@@ -30,7 +30,7 @@ data = {
 
 def update_sensor(dict_list,topic):
     url = 'http://localhost:9091'
-    smac_file=topic+".json"
+    smac_file="Output_Files/"+topic+".json"
     for data in dict_list:
         print(data)
         with  open(smac_file,"w") as json_file:

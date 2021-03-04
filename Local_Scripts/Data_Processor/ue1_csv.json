@@ -1,1 +1,0 @@
-{'hostname': 'localhost', 'portnum': 9091, 'system': 'true', 'version': '2.4', 'units': 'None', 'type': 'String', 'forceEnable': 'true', 'sensor': 'ue1_csv_is_attached', 'value': 'Yes', 'command': 'update-sensor', 'timeout': 5}SYSTEMMONITOR_COMMANDER_TRANSMISSION_COMPLETE
