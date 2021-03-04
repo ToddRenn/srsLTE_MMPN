@@ -8,6 +8,6 @@ for topic in ${topics}
 do
 	# Exclude the __consumer__metrics empty topic
 	if [[ ${topic} != *"consumer"* ]]; then
-		python3 consumer.py ${topic} &
+		python3 consumer.py ${topic} ${KAF_IP} &
 	fi
 done

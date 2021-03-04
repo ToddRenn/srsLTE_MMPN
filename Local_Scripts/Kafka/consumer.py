@@ -4,8 +4,8 @@ from kafka import KafkaConsumer
 import sys
 import reader as rd
 
-KAF_IP='155.98.36.89:9092'
-TOPIC=sys.argv[1]
+KAF_IP = srs.argv[2]
+TOPIC = sys.argv[1]
 
 consumer = KafkaConsumer(bootstrap_servers=[KAF_IP],
         auto_offset_reset="earliest",
