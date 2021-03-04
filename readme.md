@@ -16,14 +16,14 @@
 >
 >
 > * Navigate to project folder on x310's (EPC/eNB) and single PC (Kafka): **/proj/MMPN/groups/PG0/srsLTE_MMPN**
-> * Navigate to project folder on b210 (UE): **/proj/mmpn-PG0/groups/PG0/srsLTE_MMPN**
+> * Navigate to project folder on b210 (UE): **/proj/mmpn-PG0/groups/srsLTE_MMPN**
 >
 
 > ## STEP 3: Spin up Kafka server
 > _NOTE: By default, log retention is 1 minute. Edit **log.retention.ms** in **Kafka/config/server.properties** file to change this._
 > * In **Node_Scripts** run in order:
 >     * **Install_dependencies.sh**
->     * **Kafka_Scripts/kafka _start.sh** – This starts ZooKeeper/Kafka daemons
+>     * **Kafka_Scripts/kafka _up.sh** – This starts ZooKeeper/Kafka daemons. **kafka_down.sh** terminates the servers.
 >     * **Kafka_Scripts/kafka_create_topics.sh** – This creates a list of topics from user-input
 
 > ## STEP 4: Spin up srsLTE
