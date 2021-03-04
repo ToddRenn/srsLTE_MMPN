@@ -1,4 +1,6 @@
-<div style="text-align:center"><img src="logo.png" /></div>
+<p align="center">
+  <img width="460" height="300" src="logo.png">
+</p>
 
 # MMPN srsLTE Remote Sensor Guide
 > ## STEP 1: Reserve Resources
