@@ -56,7 +56,7 @@ topicName="${NODE_ID}_log"
 server="--bootstrap-server ${KAF_IP}:9092"
 topic="--topic ${topicName}"
 kaf_cmd="./Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
-sudo srs${1} | ${kaf_cmd}
+sudo srs${1} 2>&1 | ${kaf_cmd}
 
 # If UE, then send the ue_metrics.csv
 if [[ ${1} -eq "ue" ]]; then

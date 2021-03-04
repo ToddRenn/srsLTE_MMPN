@@ -1,0 +1,17 @@
+--- command='srsue' version=19.12.0 signal=13 date='04/03/2021 15:41:59' ---
+	srsue(+0xe0467) [0x55a79db47467]
+	/lib/x86_64-linux-gnu/libc.so.6(+0x3efd0) [0x7fbdb72bcfd0]
+	/lib/x86_64-linux-gnu/libc.so.6(__write+0x47) [0x7fbdb738e297]
+	/lib/x86_64-linux-gnu/libc.so.6(_IO_file_write+0x2d) [0x7fbdb730922d]
+	/lib/x86_64-linux-gnu/libc.so.6(_IO_do_write+0xb1) [0x7fbdb730afc1]
+	/lib/x86_64-linux-gnu/libc.so.6(_IO_file_sync+0xb8) [0x7fbdb73087f8]
+	/lib/x86_64-linux-gnu/libc.so.6(fflush+0x9d) [0x7fbdb72fc8ed]
+	srsue(+0xe088e) [0x55a79db4788e]
+	srsue(+0x98ca2) [0x55a79daffca2]
+	srsue(+0x8cab6) [0x55a79daf3ab6]
+	srsue(+0x76939) [0x55a79dadd939]
+	srsue(+0x71b06) [0x55a79dad8b06]
+	srsue(+0x4db6d) [0x55a79dab4b6d]
+	/lib/x86_64-linux-gnu/libpthread.so.0(+0x76db) [0x7fbdb8e046db]
+	/lib/x86_64-linux-gnu/libc.so.6(clone+0x3f) [0x7fbdb739fa3f]
+
