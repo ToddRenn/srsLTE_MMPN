@@ -17,7 +17,7 @@ ADDR_ENB=()
 ADDR_KAF="${UNAME}@pc${KAFKA_PC}.emulab.net"
 
 for PC in "${PC[@]}"; do
-  if [[ "${DATA_CTR}" -eq "fort" ]]; then
+  if [[ "${DATA_CTR}" == "fort" ]]; then
     ADDR_ENB+=( "${UNAME}@pc${PC}-fort.emulab.net" )
   else
     ADDR_ENB+=( "${UNAME}@pc${PC}.emulab.net" )

@@ -13,6 +13,7 @@ import requests
 import re
 from kafka import KafkaConsumer
 
+node_name = re.match(r'''.*[/](\w*)''',sys.argv[1]).group(1)
 data = {
             "hostname": "localhost",
             "portnum": 9091,
@@ -29,22 +30,36 @@ data = {
             "timeout": 5
             }
 
-def update_sensor(dict_list,topic):
+def tail(filename):
+    #thefile.seek(0,2) # Look at last line of thefile
+    while True:   # Continue running until file is closed
+        thefile = open(filename,"r")
+        line = thefile.readline()
+        thefile.close()
+        if not line:            # If no new line is written, wait
+            time.sleep(1)
+            continue
+        yield line
+
+def update_sensor(dict_list):
     url = 'http://localhost:9091'
     for data in dict_list:
-        json_file = open(topic+".json","w")
+        json_file = open(node_name+".json","a")
         json_file.write(str(data).strip("[]")+"SYSTEMMONITOR_COMMANDER_TRANSMISSION_COMPLETE")
         json_file.close()
-        payload = open("sensor.json")
-        r=requests.post(url, data=payload)
+        #payload = open("sensor.json")
+        #r=requests.post(url, data=payload)
 
-def log_reader(log,topic):
-    # This function takes as input a string from a log file as well as the
-    # topic it comes from (in order to create unique sensor names). The string
-    # is parsed for KEY/VALUE pairs from which JSON commands are generated
-    # log: Input string
-    # topic: Topic name/identifier
-    match_dict = dict() # Dictionary of matches
+def log_reader(filename):
+    def log_tailer(filename):
+        yield tail(filename)
+    
+    with concurrent.futures.ThreadPoolExecutor() as ex:
+        f = ex.submit(log_tailer, filename)
+        log  = f.result()
+    print("we are after thread declaration")
+    print(log)
+    match_dict = dict()# Dictionary of matches
     ue_rx = []          # List of UE REGEX
     enb_rx = []         # List of eNB REGEx
     epc_rx = []         # List of EPC REGEX
@@ -76,63 +91,55 @@ def log_reader(log,topic):
     epc_rx.append(re.compile(r'''
                         (?P<key>^Deleting eNB)[^\d]+
                         (?P<value>[\d\w]+)''', re.VERBOSE))
-    
-    # Use if/elif blocks to minimize REGEX analysis/line
-    if "ue" in topic:
-        for rx in ue_rx:
-            for m in rx.finditer(log):
-                match_dict[topic+"_"+m.group('key')]=m.group('value')
-    elif "enb" in topic:
-        for rx in enb_rx:
-            for m in rx.finditer(log):
-                match_dict[topic+"_"+m.group('key')]=m.group('value')
-        if "connected" in log:
-            x=log.split()
-            ues.add(x[1])           # Stores a UE which connected to eNB
-        if "Disconnecting" in log:
-            s=log.split('=')
-            ue_id=s[1].strip(".\n")
-            if ue_id in ues:
-                ues.remove(ue_id)   # Removes a UE which disconnected from eNB
-    elif "epc" in topic:
-        for rx in epc_rx:
-            for m in rx.finditer(log):
-                if m.group('key') == "IMSI":
-                    ues.add(m.group('value'))   # Stores active UE IMSI
-                elif m.group('key') == "Detach":
-                    if m.group('value') in ues:
-                        ues.remove(m.group('value'))# Removes inactive UE IMSI
-                else:
-                    match_dict[topic+"_"+m.group('key')]=m.group('value')
-    # Create JSON objects from KEY/VALUE pairs
+    # Scan through file
+    for line in log:
+        if "ue" in filename:
+            for rx in ue_rx:
+                for m in rx.finditer(line):
+                    match_dict[node_name+"_"+m.group('key')]=m.group('value')
+        elif "enb" in filename:
+            for rx in enb_rx:
+                for m in rx.finditer(line):
+                    match_dict[node_name+"_"+m.group('key')]=m.group('value')
+            if "connected" in line:
+                x=line.split()
+                ues.add(x[1])
+            if "Disconnecting" in line:
+                s=line.split('=')
+                ue_id=s[1].strip(".\n")
+                if ue_id in ues:
+                    ues.remove(ue_id)
+        elif "epc" in filename:
+            for rx in epc_rx:
+                for m in rx.finditer(line):
+                    if m.group('key') == "IMSI":
+                        ues.add(m.group('value'))
+                    elif m.group('key') == "Detach":
+                        ues.remove(m.group('value'))
+                    else:
+                        match_dict[node_name+"_"+m.group('key')]=m.group('value')
     for key in match_dict:
         results.append(custom_dict(key,match_dict.get(key),data))
-    # Send off to SMAC
-    update_sensor(results,topic)
+    update_sensor(results)
     match_dict.clear()
 
-def csv_reader(csv_in,topic):
-    # This function reads in a CSV string, matches it with expected headers,
-    # and creates a custom dictionary which represents the JSON SMAC command
-    # csv_in: The CSV input string
-    # topic: The name of the consumer topic it's coming from
-    header=['time','rsrp','pl','cfo','dl_mcs','dl_snr','dl_turbo','dl_brate','dl_bler',\
-            'ul_ta','ul_mcs','ul_buff','ul_brate','ul_bler','rf_o','rf_u','rf_l','is_attached']
-    s = csv_in.split(";")
-    s[len(s)-1]=s[len(s)-1].strip('\n') # Get rid of the newline from last
-    metrics={}                          # The list of KEY/VALUE dictionaries
-    dict_list = []                      # The list of SMAC JSON objects
+def csv_reader(filename):
+    def csv_tailer(filename):
+        return csv.DictReader(tail(open(filename,"rt")), delimiter=';')
     
-    # Create our key/value pairs - skip the first column: time
-    for i in range(1,len(header)):
-        header[i] = topic+"_"+header[i]     # Custom SMAC sensor name
-        metrics[header[i]] = s[i]       # Create/update the dictionary
-    # Create custom JSON objects
-    for key in metrics:
-        dict_list.append(custom_dict(str(key),str(metrics.get(key)),data))
-    # Send them off to SMAC
-    update_sensor(dict_list,topic)
-    dict_list.clear()
+    with concurrent.futures.ThreadPoolExecutor() as ex:
+        f = ex.submit(csv_tailer, filename)
+        metrics  = f.result()
+    t1 = threading.Thread(target=csv_tailer,args=filename)
+    t1.start()
+    print("we here boyz")
+    dict_list = []
+
+    for row in metrics:
+        for key in row.keys():
+            dict_list.append(custom_dict(str(key),str(row.get(key)),data))
+        update_sensor(dict_list[1:])
+        dict_list.clear()
 
 def custom_dict(key, value, data_dict):
     custom_dict = data_dict.copy()
@@ -217,4 +224,10 @@ def custom_dict(key, value, data_dict):
         del custom_dict["maxval"]
 
     return custom_dict
+
+if __name__ == '__main__':
+    if "csv" in sys.argv[1]:
+        csv_reader(sys.argv[1])
+    else:
+        log_reader(sys.argv[1])
 
