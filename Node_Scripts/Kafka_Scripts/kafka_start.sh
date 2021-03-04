@@ -7,7 +7,7 @@
 # Step 4: Fire up Kafka Cluster
 
 ############################ Variables #########################
-CFG_FILE="../Kafka/config/server.properties"
+CFG_FILE="../../Kafka/config/server.properties"
 
 
 ############################ Step 1 ############################
@@ -23,7 +23,7 @@ sed -i "s/^zookeeper.connect=[0-9].*/zookeeper.connect=localhost:2181/" \
 
 
 ############################ Step 3 ############################
-../Kafka/bin/zookeeper-server-start.sh -daemon ../Kafka/config/zookeeper.properties
+../../Kafka/bin/zookeeper-server-start.sh -daemon ../Kafka/config/zookeeper.properties
 
 ############################ Step 4 ############################
-../Kafka/bin/kafka-server-start.sh -daemon ../Kafka/config/server.properties
+../../Kafka/bin/kafka-server-start.sh -daemon ../Kafka/config/server.properties

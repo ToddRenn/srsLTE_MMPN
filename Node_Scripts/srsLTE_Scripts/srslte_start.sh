@@ -9,7 +9,7 @@
 ############################ Cleanup ###########################
 pkill -x srsenb
 pkill -x srsue
-rm srslte.log 2> /dev/null
+rm srslte_log 2> /dev/null
 
 ############################ Step 1 ############################
 # Set variables
@@ -49,12 +49,12 @@ topicName="${NODE_ID}_log"
 ############################ Step 4 ############################
 server="--bootstrap-server ${KAF_IP}:9092"
 topic="--topic ${topicName}"
-kaf_cmd="../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
+kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
 sudo srs${1} &> ${topicName} | tee ${kaf_cmd}
 
 # If UE, then send the ue_metrics.csv
 if [[ ${1} -eq "ue" ]]; then
 	topic="--topic ${NODE_ID}_csv"
-	kaf_cmd="../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
+	kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
 	tail -f -n0 /tmp/ue_metrics.csv | ${kaf_cmd}
 fi

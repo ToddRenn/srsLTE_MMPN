@@ -1,5 +1,7 @@
 #!/bin/bash
 
+c2i_filepath="~/Documents/MMPN_Repo/C2I/"
+
 # Source Files
 source ./func_wrapper.sh
 
@@ -13,7 +15,7 @@ tput sgr0
 gnome-terminal --tab -- bash -ic "source ./func_wrapper.sh; start_jupiter_server; set_title 'Jupiter DB'; exec bash"
 
 # Monitor the log file for Jupiter DB
-(tail -f -n0 ./logs/jupiter-server.log &) | grep -q 'server is ready'
+(tail -f -n0 ${c2i_filepath}logs/jupiter-server.log &) | grep -q 'server is ready'
 tput setaf 10
 echo 'Jupiter server is ready.'
 

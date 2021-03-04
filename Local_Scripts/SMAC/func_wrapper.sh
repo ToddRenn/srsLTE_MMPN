@@ -3,6 +3,8 @@
 # This file contains the functions to be executed when
 # starting C2I-Client.
 
+c2i_filepath="~/Documents/MMPN_Repo/C2I/"
+
 # Functions
 import_eml_file(){
         #This function clears old EML files from
@@ -10,7 +12,8 @@ import_eml_file(){
         #EML into the JupiterDB directory.
 
 	#Filepaths - DRY
-	BASE="./infrastructure/jupiterdb"
+	BASE="${c2i_filepath}infrastructure/jupiterdb"
+	echo ${BASE}
 
         #Step 1. Remove old EML file(s)
         tput setaf 1
@@ -50,23 +53,23 @@ set_title(){
 start_jupiter_server(){
         # This function initializes JupiterDB
         # Note, may require additional troubleshooting...
-	./server/jupiter-server | tee log.file
+	${c2i_filepath}server/jupiter-server | tee log.file
 	set_title "Jupiter DB"
 }
 
 start_plugins(){
         # This function starts the minimum plugins
-	./plugins/run-minimum-plugins.sh
+	${c2i_filepath}plugins/run-minimum-plugins.sh
 	set_title "Plugins"
 }
 
 start_c2i(){
         # This function opens C2I-C
-        ./client/c2i admin admin
+        ${c2i_filepath}client/c2i admin admin
 	set_title "C2I Client"
 }
 
 start_smac(){
 	# This function starts SMAC Commander
-	./utilities/smac-commander/smac-commander
+	${c2i_filepath}utilities/smac-commander/smac-commander
 }
