@@ -8,7 +8,6 @@ import os
 import sys
 import time
 import json
-import concurrent.futures
 import requests
 import re
 from kafka import KafkaConsumer
@@ -21,7 +20,7 @@ data = {
             "version": "2.4",
             "units": "Celsius",
             "type": "Double",
-    "forceEnable": "true",
+            "forceEnable": "true",
             "maxval": 100.0,
             "sensor": "",
             "value": 0,
@@ -31,12 +30,13 @@ data = {
 
 def update_sensor(dict_list,topic):
     url = 'http://localhost:9091'
+    smac_file=topic+".json"
     for data in dict_list:
-        json_file = open(topic+".json","w")
-        json_file.write(str(data).strip("[]")+"SYSTEMMONITOR_COMMANDER_TRANSMISSION_COMPLETE")
-        json_file.close()
-        payload = open("sensor.json")
-        r=requests.post(url, data=payload)
+        print(data)
+        with  open(smac_file,"w") as json_file:
+            json_file.write(str(data).strip("[]")+"SYSTEMMONITOR_COMMANDER_TRANSMISSION_COMPLETE")
+        with  open(smac_file) as payload:
+            r=requests.post(url, data=payload)
 
 def log_reader(log,topic):
     # This function takes as input a string from a log file as well as the
