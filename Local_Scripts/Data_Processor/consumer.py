@@ -13,7 +13,6 @@ consumer.subscribe(TOPIC)
 for msg in consumer:
     if "log" in TOPIC:
         node=TOPIC.replace('_log','')
-        print(TOPIC+"\t"+node)
         rd.log_reader(msg.value,node)
     elif "csv" in TOPIC:
         node=TOPIC.replace('_log','')

@@ -13,7 +13,18 @@ CFG_FILE="${BASE}/Kafka/config/server.properties"
 
 ############################ Step 1 ############################
 NODE_IP=$(ifconfig eno1 | grep -Po 'inet \K[\d.]+')
+for x in {0..5}; do
+	tput setaf $(( 255 - ${x}*4 ))
+	echo "#################################"
+done
+tput setaf 201
 echo "Kafka Server IP: ${NODE_IP}"
+for x in {0..5}; do
+	tput setaf $(( 240 + ${x}*4 ))
+	echo "#################################"
+done
+
+tput sgr0
 
 ############################ Step 2 ############################
 echo "Changing server.properties..."
