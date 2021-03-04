@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # This script starts EPC and sends the output to a Kafka server
+BASE="/proj/MMPN/groups/PG0/srsLTE_MMPN"
 
 # Step 0: Cleanup
 pkill -x srsepc
@@ -14,5 +15,5 @@ topicName="${NODE_ID}_log"
 # Step 2: Run srsEPC and send the output to a Kafka topic
 server="--bootstrap-server ${KAF_IP}:9092"
 topic="--topic ${topicName}"
-kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
+kaf_cmd="${BASE}/Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
 sudo srsepc &> ${topicName} | tee ${kaf_cmd}

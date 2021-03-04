@@ -13,6 +13,12 @@ rm srslte_log 2> /dev/null
 
 ############################ Step 1 ############################
 # Set variables
+if [[ ${1} -eq "ue" ]]; then
+	BASE="/proj/mmpn-PG0/groups/srsLTE_MMPN"
+else
+	BASE="/proj/MMPN/groups/PG0/srsLTE_MMPN"
+fi
+
 read -p "DL Center Frequency: " DL_FREQ
 read -p "UL Center Frequency: " UL_FREQ
 FILE_CONF="/etc/srslte/${1}.conf"
@@ -49,12 +55,12 @@ topicName="${NODE_ID}_log"
 ############################ Step 4 ############################
 server="--bootstrap-server ${KAF_IP}:9092"
 topic="--topic ${topicName}"
-kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
+kaf_cmd="${BASE}/Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
 sudo srs${1} &> ${topicName} | tee ${kaf_cmd}
 
 # If UE, then send the ue_metrics.csv
 if [[ ${1} -eq "ue" ]]; then
 	topic="--topic ${NODE_ID}_csv"
-	kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
+	kaf_cmd="${BASE}/Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
 	tail -f -n0 /tmp/ue_metrics.csv | ${kaf_cmd}
 fi

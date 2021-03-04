@@ -2,7 +2,8 @@
 
 # This script is the top module for srsLTE
 
-
+BASE="/proj/MMPN/groups/PG0/srsLTE_MMPN/Node_Scripts/srsLTE_Scripts"
+BASE_UE="/proj/mmpn-PG0/groups/srsLTE_MMPN/Node_Scripts/srsLTE_Scripts"
 ############################ GLOBALS ##########################
 # Set variables
 read -p "What is this node? (EPC/eNB/UE): " NODE_TYPE
@@ -12,12 +13,12 @@ NODE_TYPE=$(echo "${NODE_TYPE}"|tr '[A-Z]' '[a-z]')
 ############################ Step 1 ###########################
 case ${NODE_TYPE} in
 	"epc")
-		sudo ./epc_start
+		sudo ${BASE}/epc_start
 		;;
 	"ue")
-		sudo ./srslte_start ue
+		sudo ${BASE_UE}/srslte_start ue
 		;;
 	"enb")
-		sudo ./srslte_start enb
+		sudo ${BASE}/srslte_start enb
 		;;
 esac
