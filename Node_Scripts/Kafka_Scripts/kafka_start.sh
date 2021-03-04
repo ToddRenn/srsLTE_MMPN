@@ -12,7 +12,7 @@ CFG_FILE="../../Kafka/config/server.properties"
 
 ############################ Step 1 ############################
 NODE_IP=$(ifconfig eno1 | grep -Po 'inet \K[\d.]+')
-
+echo "Kafka Server IP: ${NODE_IP}"
 
 ############################ Step 2 ############################
 echo "Changing server.properties..."
