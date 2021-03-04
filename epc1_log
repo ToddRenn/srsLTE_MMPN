@@ -1,0 +1,18 @@
+
+Built in RelWithDebInfo mode using 19.12.0.
+
+
+---  Software Radio Systems EPC  ---
+
+Reading configuration file /etc/srslte/epc.conf...
+HSS Initialized.
+MME S11 Initialized
+MME GTP-C Initialized
+MME Initialized. MCC: 0xf001, MNC: 0xff01
+SPGW GTP-U Initialized.
+SPGW S11 Initialized.
+SP-GW Initialized.
+Deleting UE context in HSS. IMSI: 001010123456780
+Deleting UE context in HSS. IMSI: 001010123456789
+
+---  exiting  ---
