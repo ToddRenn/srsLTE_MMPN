@@ -15,8 +15,8 @@
 >    * This asks for your POWDER username, location of data center, PC number(s) for the EPC(s)/eNB(s), PC number for the Kafka server, and location of UE(s) (bookstore, meb, etc).
 >
 >
-> * Navigate to project folder on each node: **/proj/MMPN/groups/PG0/srsLTE_MMPN**
->
+> * Navigate to project folder on x310's (EPC/eNB) and single PC (Kafka): **/proj/MMPN/groups/PG0/srsLTE_MMPN**
+> * Navigate to project folder on b210 (UE): **/proj/mmpn-PG0/groups/PG0/srsLTE_MMPN**
 >
 
 > ## STEP 3: Spin up Kafka server
