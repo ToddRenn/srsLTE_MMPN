@@ -6,17 +6,26 @@
 
 # Read/Declare vars
 read -p "POWDER username: " UNAME
-read -p "Data Center (MEB/Fort): " DATA_CTR
-DATA_CTR=$(echo "${DATA_CTR}"|tr '[A-Z]' '[a-z]')
-read -a PC -p "Expt. PC #(s): "
-read -p "Kafka Server PC#: " KAFKA_PC
-read -a LOC -p "UE location(s): "
-
 ADDR_UE=()
 ADDR_ENB=()
-ADDR_KAF="${UNAME}@pc${KAFKA_PC}.emulab.net"
 
+# Set PC# & location for Kafka server
+read -p "Kafka Server PC#: " KAFKA_PC
+read -p "Kafka PC location (MEB/Fort): " DATA_CTR
+DATA_CTR=$(echo "${DATA_CTR}"|tr '[A-Z]' '[a-z]')
+
+if [[ "${DATA_CTR}" == "fort" ]]; then
+	ADDR_KAF="${UNAME}@pc${KAFKA_PC}-fort.emulab.net"
+else
+	ADDR_KAF="${UNAME}@pc${KAFKA_PC}.emulab.net"
+fi
+
+# Set PC# & location for srsLTE nodes
+read -a PC -p "Experiment PC #(s): "
 for PC in "${PC[@]}"; do
+  read -p "Experiment PC#${PC} location (MEB/Fort): " DATA_CTR
+  DATA_CTR=$(echo "${DATA_CTR}"|tr '[A-Z]' '[a-z]')
+
   if [[ "${DATA_CTR}" == "fort" ]]; then
     ADDR_ENB+=( "${UNAME}@pc${PC}-fort.emulab.net" )
   else
@@ -24,9 +33,12 @@ for PC in "${PC[@]}"; do
   fi
 done
 
+read -a LOC -p "UE location(s): "
 for LOC in "${LOC[@]}"; do
   ADDR_UE+=( "${UNAME}@nuc2.${LOC}.powderwireless.net" )
 done
+
+
 
 # MAIN
 
@@ -40,7 +52,7 @@ for ADDRS in "${ADDR_ENB[@]}"; do
   tput setaf 6
   echo "Connecting to EPC at ${ADDRS}..."
   tput sgr0
-  gnome-terminal --tab -- bash -ic "ssh -p22 ${ADDRS} 'sudo srsepc'; exec bash"
+  gnome-terminal --tab -- bash -ic "ssh -p22 ${ADDRS}; exec bash"
 
   # Step 1.2 Start eNB
   tput setaf 6
@@ -57,5 +69,8 @@ for ADDRS in "${ADDR_UE[@]}"; do
   gnome-terminal --tab -- bash -ic "ssh -p22 ${ADDRS} -Y; exec bash"
 done
 # ################### STEP 2: Start Kafka Server ###############################
+tput setaf 6
+echo "Connecting to Kafka node at ${ADDR_KAF}"
+tput sgr0
  gnome-terminal --tab -- bash -ic "ssh -p22 ${ADDR_KAF}; exec bash"
 
