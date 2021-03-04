@@ -15,3 +15,42 @@
 	/lib/x86_64-linux-gnu/libpthread.so.0(+0x76db) [0x7fbdb8e046db]
 	/lib/x86_64-linux-gnu/libc.so.6(clone+0x3f) [0x7fbdb739fa3f]
 
+--- command='srsue' version=19.12.0 signal=13 date='04/03/2021 15:58:21' ---
+	srsue(+0xe0467) [0x564fe65f6467]
+	/lib/x86_64-linux-gnu/libc.so.6(+0x3efd0) [0x7fb53f811fd0]
+	/lib/x86_64-linux-gnu/libc.so.6(__write+0x47) [0x7fb53f8e3297]
+	/lib/x86_64-linux-gnu/libc.so.6(_IO_file_write+0x2d) [0x7fb53f85e22d]
+	/lib/x86_64-linux-gnu/libc.so.6(_IO_do_write+0xb1) [0x7fb53f85ffc1]
+	/lib/x86_64-linux-gnu/libc.so.6(_IO_file_sync+0xb8) [0x7fb53f85d7f8]
+	/lib/x86_64-linux-gnu/libc.so.6(fflush+0x9d) [0x7fb53f8518ed]
+	/usr/lib/x86_64-linux-gnu/libstdc++.so.6(_ZNSo5flushEv+0x1e) [0x7fb54028cc4e]
+	srsue(+0x4a320) [0x564fe6560320]
+	/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xe7) [0x7fb53f7f4b97]
+	srsue(_start+0x2a) [0x564fe6561efa]
+
+--- command='srsue' version=19.12.0 signal=13 date='04/03/2021 16:00:27' ---
+	srsue(+0xe0467) [0x55bc32d3f467]
+	/lib/x86_64-linux-gnu/libc.so.6(+0x3efd0) [0x7f881154dfd0]
+	/lib/x86_64-linux-gnu/libc.so.6(__write+0x47) [0x7f881161f297]
+	/lib/x86_64-linux-gnu/libc.so.6(_IO_file_write+0x2d) [0x7f881159a22d]
+	/lib/x86_64-linux-gnu/libc.so.6(_IO_do_write+0xb1) [0x7f881159bfc1]
+	/lib/x86_64-linux-gnu/libc.so.6(_IO_file_sync+0xb8) [0x7f88115997f8]
+	/lib/x86_64-linux-gnu/libc.so.6(fflush+0x9d) [0x7f881158d8ed]
+	/usr/lib/x86_64-linux-gnu/libstdc++.so.6(_ZNSo5flushEv+0x1e) [0x7f8811fc8c4e]
+	srsue(+0x4a320) [0x55bc32ca9320]
+	/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xe7) [0x7f8811530b97]
+	srsue(_start+0x2a) [0x55bc32caaefa]
+
+--- command='srsue' version=19.12.0 signal=13 date='04/03/2021 16:03:00' ---
+	srsue(+0xe0467) [0x55c0dd664467]
+	/lib/x86_64-linux-gnu/libc.so.6(+0x3efd0) [0x7f20bd206fd0]
+	/lib/x86_64-linux-gnu/libc.so.6(__write+0x47) [0x7f20bd2d8297]
+	/lib/x86_64-linux-gnu/libc.so.6(_IO_file_write+0x2d) [0x7f20bd25322d]
+	/lib/x86_64-linux-gnu/libc.so.6(_IO_do_write+0xb1) [0x7f20bd254fc1]
+	/lib/x86_64-linux-gnu/libc.so.6(_IO_file_sync+0xb8) [0x7f20bd2527f8]
+	/lib/x86_64-linux-gnu/libc.so.6(fflush+0x9d) [0x7f20bd2468ed]
+	/usr/lib/x86_64-linux-gnu/libstdc++.so.6(_ZNSo5flushEv+0x1e) [0x7f20bdc81c4e]
+	srsue(+0x4a320) [0x55c0dd5ce320]
+	/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xe7) [0x7f20bd1e9b97]
+	srsue(_start+0x2a) [0x55c0dd5cfefa]
+
