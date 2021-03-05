@@ -14,8 +14,7 @@ CFG_FILE="../../Kafka/config/server.properties"
 
 ############################ Step 1 ############################
 PIDS=$(ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep | awk '{print $1}')
-if ps -p $PIDS > /dev/null
-then
+if [[ ps -p $PIDS > /dev/null ]]; then
 	echo "Servers already up. PID: ${PIDS}"
 fi
 
@@ -42,13 +41,13 @@ sed -i "s/^zookeeper.connect=[0-9].*/zookeeper.connect=localhost:2181/" \
 
 
 ############################ Step 3 ############################
-../../Kafka/bin/zookeeper-server-start.sh -daemon ../../Kafka/config/zookeeper.properties > /dev/null 2>&1
+sudo ../../Kafka/bin/zookeeper-server-start.sh -daemon ../../Kafka/config/zookeeper.properties > /dev/null 2>&1
 tput setaf 040
 echo "Starting Zookeeper..."
 tput sgr0
 
 ############################ Step 4 ############################
-../../Kafka/bin/kafka-server-start.sh -daemon ../../Kafka/config/server.properties > /dev/null 2>&1
+sudo ../../Kafka/bin/kafka-server-start.sh -daemon ../../Kafka/config/server.properties > /dev/null 2>&1
 tput setaf 040
 echo "Starting Kafka..."
 tput sgr0
@@ -68,6 +67,7 @@ while [ ${CHECK} -eq 1 ]; do
 	fi
 done
 perl -e 'print "\xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94"'
+echo ""
 tput sgr0
 
 echo "Zookeeper UP."
