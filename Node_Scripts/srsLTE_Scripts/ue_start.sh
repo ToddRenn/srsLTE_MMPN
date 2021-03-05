@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This node-based script starts a UE/eNB in srsLTE
+# This node-based script starts a UE in srsLTE
 # Step 1: Read in DL/UL center frequencies
 # Step 2: Edit .conf files depending on UE/eNB selection - freq + metrics
 # Step 3: Obtain Kafka information/set node identifiers
@@ -10,16 +10,19 @@ parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
 cd "${parent}"
 
 ############################ Cleanup ###########################
-sudo pkill -x srsenb
-sudo pkill -x srsue
-rm srslte_log 2> /dev/null
+for pid in $(ps ax|grep srsue|grep -v grep|awk '{print $1}'); do
+	sudo kill -9 $pid
+done
+for pid in $(ps ax|grep ConsoleProducer|grep -v grep|awk '{print $1}'); do
+	sudo kill -9 $pid
+done
 
 ############################ Step 1 ############################
 # Set variables
 
 read -p "DL Center Frequency: " DL_FREQ
 read -p "UL Center Frequency: " UL_FREQ
-FILE_CONF="/etc/srslte/${1}.conf"
+FILE_CONF="/etc/srslte/ue.conf"
 
 # Ensure frequencies are in MHz
 if [[ "$DL_FREQ" != *"e6" ]]; then
@@ -58,15 +61,13 @@ kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
 tput setaf 111
 echo "Sending ${NODE_ID} log files... "
 tput sgr0
-sudo srs${1} 2>&1 | ${kaf_cmd} > /dev/null &
+sudo srsue 2>&1 | ${kaf_cmd} 2> /dev/null &
 
-# If UE, then send the ue_metrics.csv
-if [[ ${1} -eq "ue" ]]; then
-	sleep 20
-	tput setaf 111
-	echo "Sending ${NODE_ID} metrics..."
-	tput sgr0
-	topic_csv="--topic ${NODE_ID}_csv"
-	kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic_csv} ${server}"
-	tail -f -n0 /tmp/ue_metrics.csv | ${kaf_cmd} > /dev/null &
-fi
+# Send the ue_metrics.csv
+sleep 20
+tput setaf 111
+echo "Sending ${NODE_ID} metrics..."
+tput sgr0
+topic_csv="--topic ${NODE_ID}_csv"
+kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic_csv} ${server}"
+tail -f -n0 /tmp/ue_metrics.csv | ${kaf_cmd} 2> /dev/null &
