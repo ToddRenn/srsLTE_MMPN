@@ -4,7 +4,7 @@ cd "${parent}"
 
 # This runs all consumers
 read -p "Kafka Server IP: " KAF_IP
-topics=$(./Kafka/bin/kafka-topics.sh --list --bootstrap-server ${KAF_IP}:9092)
+topics=$(../../Kafka/bin/kafka-topics.sh --list --bootstrap-server ${KAF_IP}:9092)
 
 for topic in ${topics}
 do
