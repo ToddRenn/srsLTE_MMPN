@@ -15,9 +15,7 @@
 >    * This asks for your POWDER username, location of data center, PC number(s) for the EPC(s)/eNB(s), PC number for the Kafka server, and location of UE(s) (bookstore, meb, etc).
 >
 >
-> * Navigate to project folder on x310's (EPC/eNB) and single PC (Kafka): **/proj/MMPN/groups/PG0/srsLTE_MMPN**
-> * Navigate to project folder on b210 (UE): **/proj/mmpn-PG0/groups/srsLTE_MMPN**
->
+> * Clone this repo onto the node
 
 > ## STEP 3: Spin up Kafka server
 > _NOTE: By default, log retention is 1 minute. Edit **log.retention.ms** in **Kafka/config/server.properties** file to change this._
