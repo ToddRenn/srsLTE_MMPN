@@ -48,10 +48,10 @@ sed -i "s/^zookeeper.connect=[0-9].*/zookeeper.connect=localhost:2181/" \
 
 
 ############################ Step 3 ############################
-pid_checker() zookeeper zookeeper
+pid_checker() 'zookeeper' 'zookeeper'
 
 ############################ Step 4 ############################
-pid_checker() kafka server
+pid_checker() 'kafka' 'server'
 
 pid_checker()
 {
