@@ -5,11 +5,19 @@ cd "${parent}"
 
 ../../Kafka/bin/zookeeper-server-stop.sh
 tput setaf 001
-echo "Zookeeper server DOWN."
+if [[ $? -ne 0 ]]; then
+	echo "Failed to shut Zookeeper down."
+else
+	echo "Zookeeper server DOWN."
+fi
 tput sgr0
 
 ../../Kafka/bin/kafka-server-stop.sh
 
 tput setaf 001
-echo "Kafka server DOWN."
+if [[ $? -ne 0 ]]; then
+	echo "Failed to shut Kafka server down."
+else
+	echo "Kafka server DOWN."
+fi
 tput sgr0

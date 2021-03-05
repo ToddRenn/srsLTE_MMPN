@@ -36,13 +36,23 @@ sed -i "s/^zookeeper.connect=[0-9].*/zookeeper.connect=localhost:2181/" \
 
 
 ############################ Step 3 ############################
-../../Kafka/bin/zookeeper-server-start.sh -daemon ../../Kafka/config/zookeeper.properties
-tput setaf 040
-echo "Zookeeper server UP. PID: $!"
+../../Kafka/bin/zookeeper-server-start.sh -daemon ../../Kafka/config/zookeeper.properties > /dev/null 2>&1
+if [[ $? -eq 0 ]]; then
+	tput setaf 040
+	echo "Zookeeper server UP."
+else
+	tput setaf 001
+	echo "Zookeeper failed to start."
+fi
 tput sgr0
 
 ############################ Step 4 ############################
-../../Kafka/bin/kafka-server-start.sh -daemon ../../Kafka/config/server.properties
-tput setaf 040
-echo "Kafka server UP. PID: $!"
+../../Kafka/bin/kafka-server-start.sh -daemon ../../Kafka/config/server.properties > /dev/null 2>&1
+if [[ $? -eq 0 ]]; then
+	tput setaf 040
+	echo "Kafka server UP."
+else
+	tput setaf 001
+	echo "Kafka failed to start."
+fi	
 tput sgr0
