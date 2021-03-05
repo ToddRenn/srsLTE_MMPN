@@ -26,7 +26,7 @@ pid_checker()
 		tput setaf ${cnt}
         	echo -n "."
         	sleep 0.5
-		ps ax | grep ${1}.properties | grep -v grep > /dev/null
+		ps ax | grep ${2}.properties | grep -v grep > /dev/null
 		CHECK=$?
 		if [[ ${cnt} -eq 0 ]]; then
 			cnt=255
