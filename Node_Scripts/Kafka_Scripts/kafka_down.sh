@@ -20,6 +20,7 @@ pid_checker()
 			(( cnt-- ))
 		fi
 	done
+	echo ""
 	perl -e 'print "\xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94"'
 	echo ""
 	tput setaf 001
