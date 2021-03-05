@@ -3,6 +3,15 @@
 # This script tails the metrics at a given POWDER node
 # and stores the file locally as ${NODE_TYPE}_metrics.csv
 # NOTE: Make sure metric recording is ENABLED on the nodes.
+parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
+cd "${parent}"
+
+while read p; do
+        tput setaf $(shuf -i 0-255 -n 1)
+        echo "$p"
+        sleep 0.07
+done < ../Node_Scripts/srsLTE_Scripts/mmpn.txt
+tput sgr0
 
 # Read/Declare vars
 read -p "POWDER username: " UNAME
