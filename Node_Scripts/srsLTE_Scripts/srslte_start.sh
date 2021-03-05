@@ -58,14 +58,14 @@ kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
 tput setaf 111
 echo "Sending ${NODE_ID} log files... "
 tput sgr0
-sudo srs${1} &| ${kaf_cmd} &
+sudo srs${1} | ${kaf_cmd} &
 
 # If UE, then send the ue_metrics.csv
 if [[ ${1} -eq "ue" ]]; then
+	sleep 20
 	tput setaf 111
 	echo "Sending ${NODE_ID} metrics..."
 	tput sgr0
-	sleep 20
 	topic_csv="--topic ${NODE_ID}_csv"
 	kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic_csv} ${server}"
 	tail -f -n0 /tmp/ue_metrics.csv | ${kaf_cmd} &
