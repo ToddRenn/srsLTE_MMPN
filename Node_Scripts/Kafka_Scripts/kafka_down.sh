@@ -13,6 +13,7 @@ while [ ${CHECK} -ne 1 ]; do
         sleep 0.5
 	ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep > /dev/null
 	CHECK=$?
+	(( cnt-- ))
 done
 tput sgr0
 
