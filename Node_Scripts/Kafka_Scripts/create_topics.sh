@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # This script creates a topic on the node Kafka server
-BASE="/proj/MMPN/groups/PG0/srsLTE_MMPN"
+parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
+cd "${parent}"
 
-read -a topicName -p "Enter topic name(s): "
+read -a topicName -p "CREATE: Enter topic name(s): "
 NODE_IP=$(ifconfig eno1 | grep -Po 'inet \K[\d.]+')
 
 for name in "${topicName[@]}"; do
