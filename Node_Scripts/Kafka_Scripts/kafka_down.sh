@@ -3,7 +3,7 @@
 parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
 cd "${parent}"
 
-../../Kafka/bin/kafka-server-stop.sh
+sudo ../../Kafka/bin/kafka-server-stop.sh
 
 CHECK=0
 cnt=$(shuf -i 0-255 -n 1)
@@ -20,6 +20,7 @@ while [ ${CHECK} -ne 1 ]; do
 	fi
 done
 perl -e 'print "\xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94"'
+echo ""
 tput sgr0
 
 tput setaf 001
