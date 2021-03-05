@@ -6,6 +6,7 @@ cd "${parent}"
 ../../Kafka/bin/kafka-server-stop.sh
 
 CHECK=0
+cnt=$(shuf -i 0-255 -n 1)
 while [ ${CHECK} -ne 1 ]; do
 	tput setaf ${cnt}
         echo -n "."
