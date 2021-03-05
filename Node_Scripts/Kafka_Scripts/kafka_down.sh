@@ -27,6 +27,6 @@ pid_checker()
 	tput sgr0
 }
 
-pid_checker() 'kafka'
-pid_checker() 'zookeeper'
+pid_checker 'kafka'
+pid_checker 'zookeeper'
 
