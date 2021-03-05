@@ -14,8 +14,10 @@ CFG_FILE="../../Kafka/config/server.properties"
 
 ############################ Step 1 ############################
 PIDS=$(ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep | awk '{print $1}')
-if [[ ps -p $PIDS > /dev/null ]]; then
+if ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep > /dev/null
+then
 	echo "Servers already up. PID: ${PIDS}"
+	exit
 fi
 
 NODE_IP=$(ifconfig eno1 | grep -Po 'inet \K[\d.]+')
@@ -66,6 +68,7 @@ while [ ${CHECK} -eq 1 ]; do
 		(( cnt-- ))
 	fi
 done
+echo ""
 perl -e 'print "\xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94"'
 echo ""
 tput sgr0
