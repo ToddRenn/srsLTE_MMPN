@@ -17,6 +17,7 @@ while [ ${CHECK} -ne 1 ]; do
 		cnt = 255
 	else
 		(( cnt-- ))
+	fi
 done
 perl -e 'print "\xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94"'
 tput sgr0
