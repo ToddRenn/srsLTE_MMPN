@@ -10,8 +10,8 @@ parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
 cd "${parent}"
 
 ############################ Cleanup ###########################
-pkill -x srsenb
-pkill -x srsue
+sudo pkill -x srsenb
+sudo pkill -x srsue
 rm srslte_log 2> /dev/null
 
 ############################ Step 1 ############################
