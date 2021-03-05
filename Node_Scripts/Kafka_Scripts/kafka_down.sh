@@ -13,8 +13,12 @@ while [ ${CHECK} -ne 1 ]; do
         sleep 0.5
 	ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep > /dev/null
 	CHECK=$?
-	(( cnt-- ))
+	if [[ ${cnt} -eq 0 ]]; then
+		cnt = 255
+	else
+		(( cnt-- ))
 done
+perl -e 'print "\xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94"'
 tput sgr0
 
 tput setaf 001
