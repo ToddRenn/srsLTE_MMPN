@@ -13,6 +13,12 @@ cd "${parent}"
 CFG_FILE="../../Kafka/config/server.properties"
 
 ############################ Step 1 ############################
+PIDS=$(ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep | awk '{print $1}')
+if ps -p $PIDS > /dev/null
+then
+	echo "Servers already up. PID: ${PIDS}"
+fi
+
 NODE_IP=$(ifconfig eno1 | grep -Po 'inet \K[\d.]+')
 for x in {0..5}; do
 	tput setaf $(( 255 - ${x}*4 ))
@@ -56,7 +62,7 @@ while [ ${CHECK} -eq 1 ]; do
 	ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep > /dev/null
 	CHECK=$?
 	if [[ ${cnt} -eq 0 ]]; then
-		cnt = 255
+		cnt=255
 	else
 		(( cnt-- ))
 	fi
