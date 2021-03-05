@@ -11,6 +11,6 @@ do
 	# Exclude the __consumer__metrics empty topic
 	if [[ ${topic} != *"consumer"* ]]; then
 		read -p "[TOPIC: ${topic}]Node hostname: " NODE_NAME
-		python3 consumer.py ${topic} ${KAF_IP} ${NODE_NAME} &
+		gnome-terminal --tab -- bash -ic "python3 consumer.py ${topic} ${KAF_IP} ${NODE_NAME}; exec bas"
 	fi
 done
