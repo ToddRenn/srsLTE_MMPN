@@ -1,4 +1,6 @@
 #!/bin/bash
+parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
+cd "${parent}"
 
 # This runs all consumers
 read -p "Kafka Server IP: " KAF_IP
@@ -9,6 +11,6 @@ do
 	# Exclude the __consumer__metrics empty topic
 	if [[ ${topic} != *"consumer"* ]]; then
 		read -p "Node hostname: " NODE_NAME
-		python3 Local_Scripts/Data_Processor/consumer.py ${topic} ${KAF_IP} ${NODE_NAME} &
+		python3 consumer.py ${topic} ${KAF_IP} ${NODE_NAME} &
 	fi
 done

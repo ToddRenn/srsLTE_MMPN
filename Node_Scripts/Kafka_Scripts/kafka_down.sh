@@ -1,8 +1,15 @@
 #!/bin/bash
 
-BASE="/proj/MMPN/groups/PG0/srsLTE_MMPN"
+parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
+cd "${parent}"
 
-${BASE}/Kafka/bin/zookeeper-server-stop.sh
-echo "ZooKeeper server terminated successfully."
-${BASE}/Kafka/bin/kafka-server-stop.sh
-echo "Kafka server terminated successfully."
+../../Kafka/bin/zookeeper-server-stop.sh
+tput setaf 001
+echo "Zookeeper server DOWN."
+tput sgr0
+
+../../Kafka/bin/kafka-server-stop.sh
+
+tput setaf 001
+echo "Kafka server DOWN."
+tput sgr0

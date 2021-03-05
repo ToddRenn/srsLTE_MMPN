@@ -6,6 +6,9 @@
 # Step 3: Obtain Kafka information/set node identifiers
 # Step 4: Start srsLTE and send data to Kafka
 
+parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
+cd "${parent}"
+
 ############################ Cleanup ###########################
 pkill -x srsenb
 pkill -x srsue
@@ -13,11 +16,6 @@ rm srslte_log 2> /dev/null
 
 ############################ Step 1 ############################
 # Set variables
-if [[ ${1} -eq "ue" ]]; then
-	BASE="/proj/mmpn-PG0/groups/srsLTE_MMPN"
-else
-	BASE="/proj/MMPN/groups/PG0/srsLTE_MMPN"
-fi
 
 read -p "DL Center Frequency: " DL_FREQ
 read -p "UL Center Frequency: " UL_FREQ
@@ -56,13 +54,13 @@ topicName="${NODE_ID}_log"
 server="--bootstrap-server ${KAF_IP}:9092"
 topic="--topic ${topicName}"
 echo "Topic name:${topicName}"
-kaf_cmd="./Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
+kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
 sudo srs${1} 2>&1 | ${kaf_cmd} &
 
 # If UE, then send the ue_metrics.csv
 if [[ ${1} -eq "ue" ]]; then
-	wait(20)
-	topic="--topic ${NODE_ID}_csv"
-	kaf_cmd="./Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
+	sleep(20)
+	topic_csv="--topic ${NODE_ID}_csv"
+	kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic_csv} ${server}"
 	tail -f -n0 /tmp/ue_metrics.csv | ${kaf_cmd} &
 fi

@@ -1,7 +1,8 @@
 #!/bin/bash
-
 # This script is the top module for srsLTE
 
+parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
+cd "${parent}"
 
 ############################ GLOBALS ##########################
 # Set variables

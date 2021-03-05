@@ -6,10 +6,11 @@
 # Step 3: Fire up ZooKeeper
 # Step 4: Fire up Kafka Cluster
 
-############################ Variables #########################
-BASE="/proj/MMPN/groups/PG0/srsLTE_MMPN"
-CFG_FILE="${BASE}/Kafka/config/server.properties"
+parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
+cd "${parent}"
 
+############################ Variables #########################
+CFG_FILE="../../Kafka/config/server.properties"
 
 ############################ Step 1 ############################
 NODE_IP=$(ifconfig eno1 | grep -Po 'inet \K[\d.]+')
@@ -35,7 +36,13 @@ sed -i "s/^zookeeper.connect=[0-9].*/zookeeper.connect=localhost:2181/" \
 
 
 ############################ Step 3 ############################
-${BASE}/Kafka/bin/zookeeper-server-start.sh -daemon ${BASE}/Kafka/config/zookeeper.properties
+../../Kafka/bin/zookeeper-server-start.sh -daemon ../../Kafka/config/zookeeper.properties
+tput setaf 040
+echo "Zookeeper server UP. PID: $!"
+tput sgr0
 
 ############################ Step 4 ############################
-${BASE}/Kafka/bin/kafka-server-start.sh -daemon ${BASE}/Kafka/config/server.properties
+../../Kafka/bin/kafka-server-start.sh -daemon ../../Kafka/config/server.properties
+tput setaf 040
+echo "Kafka server UP. PID: $!"
+tput sgr0
