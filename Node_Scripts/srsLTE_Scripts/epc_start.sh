@@ -8,7 +8,7 @@ cd "${parent}"
 pkill -x srsepc
 
 # Step 1: Obtain Kafka server IP and set node identifier (for topic)
-echo "Kafka IP is: ${KAF_IP}"
+read -p "Kafka IP is: " KAF_IP
 read -p "Node identifier: " NODE_ID
 
 topicName="${NODE_ID}_log"
