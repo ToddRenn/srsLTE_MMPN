@@ -4,10 +4,10 @@ parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
 cd "${parent}"
 
 sudo ../../Kafka/bin/kafka-server-stop.sh
-pid_checker() kafka
+pid_checker() 'kafka'
 
 sudo ../../Kafka/bin/zookeeper-server-stop.sh
-pid_checker() zookeeper
+pid_checker() 'zookeeper'
 
 pid_checker()
 {
