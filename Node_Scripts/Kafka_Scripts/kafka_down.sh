@@ -14,7 +14,7 @@ while [ ${CHECK} -ne 1 ]; do
 	ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep > /dev/null
 	CHECK=$?
 	if [[ ${cnt} -eq 0 ]]; then
-		cnt = 255
+		cnt=255
 	else
 		(( cnt-- ))
 	fi
