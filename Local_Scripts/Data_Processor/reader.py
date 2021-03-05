@@ -57,7 +57,7 @@ def log_reader(log,node,topic):
                    (?P<value>-?[.\d\w]+)''', re.VERBOSE))
 
     ue_rx.append(re.compile(r'''
-                   (?P<key>IP)[:\s]+
+                   (?P<key>IP|Device)[:\s]+
                    (?P<value>[.\d]+)''', re.VERBOSE))
     #eNB Filters
     enb_rx.append(re.compile(r'''
