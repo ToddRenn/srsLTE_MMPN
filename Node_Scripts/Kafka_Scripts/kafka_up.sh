@@ -12,35 +12,6 @@ cd "${parent}"
 ############################ Variables #########################
 CFG_FILE="../../Kafka/config/server.properties"
 
-############################ Functions #########################
-pid_checker()
-{
-	sudo ../../Kafka/bin/${1}-server-start.sh -daemon ../../Kafka/config/${2}.properties > /dev/null 2>&1
-	tput setaf 040
-	echo "Starting ${1}..."
-	tput sgr0
-	
-	CHECK=1
-	cnt=$(shuf -i 0-255 -n 1)
-	while [ ${CHECK} -eq 1 ]; do
-		tput setaf ${cnt}
-        	echo -n "."
-        	sleep 0.5
-		ps ax | grep ${1}.properties | grep -v grep > /dev/null
-		CHECK=$?
-		if [[ ${cnt} -eq 0 ]]; then
-			cnt=255
-		else
-			(( cnt-- ))
-		fi
-	done
-	perl -e 'print "\xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94"'
-	echo ""
-	tput setaf 111
-	echo "${1} server UP."
-	tput sgr0
-}
-
 ############################ Step 1 ############################
 PID_Kaf=$(ps ax | grep server.properties | grep -v grep | awk '{print $1}')
 PID_Zoo=$(ps ax | grep zookeeper.properties | grep -v grep | awk '{print $1}')
@@ -81,3 +52,32 @@ pid_checker 'zookeeper' 'zookeeper'
 
 ############################ Step 4 ############################
 pid_checker 'kafka' 'server'
+
+############################ Functions #########################
+pid_checker()
+{
+	sudo ../../Kafka/bin/${1}-server-start.sh -daemon ../../Kafka/config/${2}.properties > /dev/null 2>&1
+	tput setaf 040
+	echo "Starting ${1}..."
+	tput sgr0
+	
+	CHECK=1
+	cnt=$(shuf -i 0-255 -n 1)
+	while [ ${CHECK} -eq 1 ]; do
+		tput setaf ${cnt}
+        	echo -n "."
+        	sleep 0.5
+		ps ax | grep ${1}.properties | grep -v grep > /dev/null
+		CHECK=$?
+		if [[ ${cnt} -eq 0 ]]; then
+			cnt=255
+		else
+			(( cnt-- ))
+		fi
+	done
+	perl -e 'print "\xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94"'
+	echo ""
+	tput setaf 111
+	echo "${1} server UP."
+	tput sgr0
+}
