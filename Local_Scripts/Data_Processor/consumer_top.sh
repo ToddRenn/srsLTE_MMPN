@@ -10,7 +10,7 @@ for topic in ${topics}
 do
 	# Exclude the __consumer__metrics empty topic
 	if [[ ${topic} != *"consumer"* ]]; then
-		read -p "Node hostname: " NODE_NAME
+		read -p "[TOPIC: ${topic}]Node hostname: " NODE_NAME
 		python3 consumer.py ${topic} ${KAF_IP} ${NODE_NAME} &
 	fi
 done
