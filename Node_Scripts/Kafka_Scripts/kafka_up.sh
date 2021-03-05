@@ -46,36 +46,35 @@ sed -i "s/^zookeeper.connect=[0-9].*/zookeeper.connect=localhost:2181/" \
 
 
 ############################ Step 3 ############################
-sudo ../../Kafka/bin/zookeeper-server-start.sh -daemon ../../Kafka/config/zookeeper.properties > /dev/null 2>&1
-tput setaf 040
-echo "Starting Zookeeper..."
-tput sgr0
+pid_checker() zookeeper zookeeper
 
 ############################ Step 4 ############################
-sudo ../../Kafka/bin/kafka-server-start.sh -daemon ../../Kafka/config/server.properties > /dev/null 2>&1
-tput setaf 040
-echo "Starting Kafka..."
-tput sgr0
+pid_checker() kafka server
 
-CHECK=1
-cnt=$(shuf -i 0-255 -n 1)
-while [ ${CHECK} -eq 1 ]; do
-	tput setaf ${cnt}
-        echo -n "."
-        sleep 0.5
-	ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep > /dev/null
-	CHECK=$?
-	if [[ ${cnt} -eq 0 ]]; then
-		cnt=255
-	else
-		(( cnt-- ))
-	fi
-done
-echo ""
-perl -e 'print "\xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94"'
-echo ""
-tput sgr0
-
-echo "Zookeeper UP."
-echo "Kafka UP."
-tput sgr0
+pid_checker()
+{
+	sudo ../../Kafka/bin/${1}-server-start.sh -daemon ../../Kafka/config/${2}.properties > /dev/null 2>&1
+	tput setaf 040
+	echo "Starting ${1}..."
+	tput sgr0
+	
+	CHECK=1
+	cnt=$(shuf -i 0-255 -n 1)
+	while [ ${CHECK} -eq 1 ]; do
+		tput setaf ${cnt}
+        	echo -n "."
+        	sleep 0.5
+		ps ax | grep ${1}.properties | grep -v grep > /dev/null
+		CHECK=$?
+		if [[ ${cnt} -eq 0 ]]; then
+			cnt=255
+		else
+			(( cnt-- ))
+		fi
+	done
+	perl -e 'print "\xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94 \xE2\x9C\x94"'
+	echo ""
+	tput setaf 111
+	echo "${1} server UP."
+	tput sgr0
+}
