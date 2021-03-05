@@ -3,6 +3,9 @@
 parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
 cd "${parent}"
 
+pid_checker 'kafka'
+pid_checker 'zookeeper'
+
 pid_checker()
 {
 	sudo ../../Kafka/bin/${1}-server-stop.sh
@@ -26,7 +29,4 @@ pid_checker()
 	echo "${1} server DOWN."
 	tput sgr0
 }
-
-pid_checker 'kafka'
-pid_checker 'zookeeper'
 
