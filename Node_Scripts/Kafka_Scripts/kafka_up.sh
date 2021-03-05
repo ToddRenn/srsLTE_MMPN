@@ -37,22 +37,24 @@ sed -i "s/^zookeeper.connect=[0-9].*/zookeeper.connect=localhost:2181/" \
 
 ############################ Step 3 ############################
 ../../Kafka/bin/zookeeper-server-start.sh -daemon ../../Kafka/config/zookeeper.properties > /dev/null 2>&1
-if [[ $? -eq 0 ]]; then
-	tput setaf 040
-	echo "Zookeeper server UP."
-else
-	tput setaf 001
-	echo "Zookeeper failed to start."
-fi
+tput setaf 040
+echo "Starting Zookeeper..."
 tput sgr0
 
 ############################ Step 4 ############################
 ../../Kafka/bin/kafka-server-start.sh -daemon ../../Kafka/config/server.properties > /dev/null 2>&1
-if [[ $? -eq 0 ]]; then
-	tput setaf 040
-	echo "Kafka server UP."
-else
-	tput setaf 001
-	echo "Kafka failed to start."
-fi	
+tput setaf 040
+echo "Starting Kafka..."
+tput sgr0
+
+CHECK=1
+while [ ${CHECK} -ne 0 ]; do
+	tput setaf ${cnt}
+        echo -n "."
+        sleep 0.5
+	ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep | awk '{print $1}'
+	CHECK=$?
+done
+echo "Zookeeper UP."
+echo "Kafka UP."
 tput sgr0
