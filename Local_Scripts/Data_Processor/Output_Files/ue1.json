@@ -1,0 +1,1 @@
+{'hostname': 'localhost', 'portnum': 9091, 'minval': 0, 'system': 'true', 'version': '2.4', 'units': 'None', 'type': 'String', 'forceEnable': 'true', 'maxval': 10000, 'sensor': 'ue1_CFO', 'value': '-3.9kHz', 'command': 'update-sensor', 'timeout': 5}SYSTEMMONITOR_COMMANDER_TRANSMISSION_COMPLETE
