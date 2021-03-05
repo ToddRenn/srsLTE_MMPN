@@ -5,11 +5,12 @@
 # NOTE: Make sure metric recording is ENABLED on the nodes.
 parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
 cd "${parent}"
-
+cnt=$(shuf -i 0-255 -n 1)
 while read p; do
-        tput setaf $(shuf -i 0-255 -n 1)
+	tput setaf ${cnt}
         echo "$p"
         sleep 0.07
+	(( cnt-- ))
 done < ../Node_Scripts/srsLTE_Scripts/mmpn.txt
 tput sgr0
 
