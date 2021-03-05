@@ -47,14 +47,15 @@ tput setaf 040
 echo "Starting Kafka..."
 tput sgr0
 
-CHECK=0
+CHECK=1
 cnt=$(shuf -i 0-255 -n 1)
-while [ ${CHECK} -ne 1 ]; do
+while [ ${CHECK} -eq 1 ]; do
 	tput setaf ${cnt}
         echo -n "."
         sleep 0.5
 	ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep > /dev/null
 	CHECK=$?
+	(( cnt-- ))
 done
 echo "Zookeeper UP."
 echo "Kafka UP."
