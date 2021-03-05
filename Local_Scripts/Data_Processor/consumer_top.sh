@@ -8,6 +8,7 @@ for topic in ${topics}
 do
 	# Exclude the __consumer__metrics empty topic
 	if [[ ${topic} != *"consumer"* ]]; then
-		python3 Local_Scripts/Data_Processor/consumer.py ${topic} ${KAF_IP} &
+		read -p "Node hostname: " NODE_NAME
+		python3 Local_Scripts/Data_Processor/consumer.py ${topic} ${KAF_IP} ${NODE_NAME} &
 	fi
 done

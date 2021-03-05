@@ -7,7 +7,7 @@ BASE="/proj/MMPN/groups/PG0/srsLTE_MMPN"
 pkill -x srsepc
 
 # Step 1: Obtain Kafka server IP and set node identifier (for topic)
-read -p "Kafka server IP: " KAF_IP
+echo "Kafka IP is: ${KAF_IP}"
 read -p "Node identifier: " NODE_ID
 
 topicName="${NODE_ID}_log"
