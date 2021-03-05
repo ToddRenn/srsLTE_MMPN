@@ -8,7 +8,6 @@ import os
 import sys
 import time
 import json
-import concurrent.futures
 import requests
 import re
 from kafka import KafkaConsumer
@@ -21,7 +20,7 @@ data = {
             "version": "2.4",
             "units": "Celsius",
             "type": "Double",
-    "forceEnable": "true",
+            "forceEnable": "true",
             "maxval": 100.0,
             "sensor": "",
             "value": 0,
@@ -31,14 +30,15 @@ data = {
 
 def update_sensor(dict_list,topic):
     url = 'http://localhost:9091'
+    smac_file="Output_Files/"+topic+".json"
     for data in dict_list:
-        json_file = open(topic+".json","w")
-        json_file.write(str(data).strip("[]")+"SYSTEMMONITOR_COMMANDER_TRANSMISSION_COMPLETE")
-        json_file.close()
-        payload = open("sensor.json")
-        r=requests.post(url, data=payload)
+        print(data)
+        with  open(smac_file,"w") as json_file:
+            json_file.write(str(data).strip("[]")+"SYSTEMMONITOR_COMMANDER_TRANSMISSION_COMPLETE")
+        with  open(smac_file) as payload:
+            r=requests.post(url, data=payload)
 
-def log_reader(log,topic):
+def log_reader(log,node,topic):
     # This function takes as input a string from a log file as well as the
     # topic it comes from (in order to create unique sensor names). The string
     # is parsed for KEY/VALUE pairs from which JSON commands are generated
@@ -106,12 +106,12 @@ def log_reader(log,topic):
                     match_dict[topic+"_"+m.group('key')]=m.group('value')
     # Create JSON objects from KEY/VALUE pairs
     for key in match_dict:
-        results.append(custom_dict(key,match_dict.get(key),data))
+        results.append(custom_dict(key,match_dict.get(key),data, node))
     # Send off to SMAC
     update_sensor(results,topic)
     match_dict.clear()
 
-def csv_reader(csv_in,topic):
+def csv_reader(csv_in,node,topic):
     # This function reads in a CSV string, matches it with expected headers,
     # and creates a custom dictionary which represents the JSON SMAC command
     # csv_in: The CSV input string
@@ -129,12 +129,12 @@ def csv_reader(csv_in,topic):
         metrics[header[i]] = s[i]       # Create/update the dictionary
     # Create custom JSON objects
     for key in metrics:
-        dict_list.append(custom_dict(str(key),str(metrics.get(key)),data))
+        dict_list.append(custom_dict(str(key),str(metrics.get(key)),data, node))
     # Send them off to SMAC
     update_sensor(dict_list,topic)
     dict_list.clear()
 
-def custom_dict(key, value, data_dict):
+def custom_dict(key, value, data_dict, node):
     custom_dict = data_dict.copy()
     custom_dict["sensor"] = key;
     custom_dict["value"] = value;

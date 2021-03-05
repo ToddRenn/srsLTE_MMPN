@@ -7,7 +7,7 @@ BASE="/proj/MMPN/groups/PG0/srsLTE_MMPN"
 pkill -x srsepc
 
 # Step 1: Obtain Kafka server IP and set node identifier (for topic)
-read -p "Kafka server IP: " KAF_IP
+echo "Kafka IP is: ${KAF_IP}"
 read -p "Node identifier: " NODE_ID
 
 topicName="${NODE_ID}_log"
@@ -15,5 +15,5 @@ topicName="${NODE_ID}_log"
 # Step 2: Run srsEPC and send the output to a Kafka topic
 server="--bootstrap-server ${KAF_IP}:9092"
 topic="--topic ${topicName}"
-kaf_cmd="${BASE}/Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
-sudo srsepc &> ${topicName} | tee ${kaf_cmd}
+kaf_cmd="./Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
+sudo srsepc 2>&1 | ${kaf_cmd}

@@ -55,12 +55,14 @@ topicName="${NODE_ID}_log"
 ############################ Step 4 ############################
 server="--bootstrap-server ${KAF_IP}:9092"
 topic="--topic ${topicName}"
-kaf_cmd="${BASE}/Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
-sudo srs${1} &> ${topicName} | tee ${kaf_cmd}
+echo "Topic name:${topicName}"
+kaf_cmd="./Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
+sudo srs${1} 2>&1 | ${kaf_cmd} &
 
 # If UE, then send the ue_metrics.csv
 if [[ ${1} -eq "ue" ]]; then
+	wait(20)
 	topic="--topic ${NODE_ID}_csv"
-	kaf_cmd="${BASE}/Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
-	tail -f -n0 /tmp/ue_metrics.csv | ${kaf_cmd}
+	kaf_cmd="./Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
+	tail -f -n0 /tmp/ue_metrics.csv | ${kaf_cmd} &
 fi
