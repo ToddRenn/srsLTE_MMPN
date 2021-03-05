@@ -10,7 +10,7 @@ while [ ${CHECK} -ne 1 ]; do
 	tput setaf ${cnt}
         echo -n "."
         sleep 0.5
-	ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep | awk '{print $1}'
+	ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep > /dev/null
 	CHECK=$?
 done
 tput sgr0
