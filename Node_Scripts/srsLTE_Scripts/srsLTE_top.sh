@@ -17,9 +17,9 @@ case ${NODE_TYPE} in
 		sudo ./epc_start.sh
 		;;
 	"ue")
-		sudo ./srslte_start.sh ue
+		sudo ./ue_start.sh
 		;;
 	"enb")
-		sudo ./srslte_start.sh enb
+		sudo ./enb_start.sh
 		;;
 esac
