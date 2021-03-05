@@ -19,8 +19,10 @@ if ps ax | grep server.properties | grep -v grep > /dev/null
 then
 	echo "Kafka already up. PID: ${PID_Kaf}"
 	if ps ax | grep zookeeper.properties | grep -v grep > /dev/null
+	then
 		echo "Zookeeper already up. PID: ${PID_Zoo}"
-	exit
+	fi
+	exit 1
 fi
 
 NODE_IP=$(ifconfig eno1 | grep -Po 'inet \K[\d.]+')
