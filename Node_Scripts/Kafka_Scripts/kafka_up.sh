@@ -13,10 +13,13 @@ cd "${parent}"
 CFG_FILE="../../Kafka/config/server.properties"
 
 ############################ Step 1 ############################
-PIDS=$(ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep | awk '{print $1}')
-if ps ax | grep 'kafka\.Kafka ' | grep java | grep -v grep > /dev/null
+PID_Kaf=$(ps ax | grep server.properties | grep -v grep | awk '{print $1}')
+PID_Zoo=$(ps ax | grep zookeeper.properties | grep -v grep | awk '{print $1}')
+if ps ax | grep server.properties | grep -v grep > /dev/null
 then
-	echo "Servers already up. PID: ${PIDS}"
+	echo "Kafka already up. PID: ${PID_Kaf}"
+	if ps ax | grep zookeeper.properties | grep -v grep > /dev/null
+		echo "Zookeeper already up. PID: ${PID_Zoo}"
 	exit
 fi
 
