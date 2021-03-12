@@ -1,1 +1,1 @@
-{'hostname': 'localhost', 'portnum': 9091, 'system': 'true', 'version': '2.4', 'units': 'None', 'type': 'String', 'forceEnable': 'true', 'sensor': 'ue1_csv_rf_l', 'value': '0.0', 'command': 'update-sensor', 'timeout': 5}SYSTEMMONITOR_COMMANDER_TRANSMISSION_COMPLETE
+{'hostname': 'localhost', 'portnum': 9091, 'system': 'true', 'version': '2.4', 'units': 'None', 'type': 'String', 'forceEnable': 'true', 'sensor': 'ue1_csv_is_attached', 'value': 'No', 'command': 'update-sensor', 'timeout': 5}SYSTEMMONITOR_COMMANDER_TRANSMISSION_COMPLETE
