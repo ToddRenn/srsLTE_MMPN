@@ -1,10 +1,3 @@
-Reading configuration file /etc/srslte/epc.conf...
-HSS Initialized.
-MME S11 Initialized
-MME GTP-C Initialized
-MME Initialized. MCC: 0xf001, MNC: 0xff01
-SPGW GTP-U Initialized.
-SPGW S11 Initialized.
 SP-GW Initialized.
 Received S1 Setup Request.
 S1 Setup Request - eNB Name: srsenb01, eNB id: 0x19b
@@ -12,6 +5,13 @@ S1 Setup Request - MCC:001, MNC:01, PLMN: 61712
 S1 Setup Request - TAC 7, B-PLMN 0
 S1 Setup Request - Paging DRX 2
 Sending S1 Setup Response
+Received S1 Setup Request.
+S1 Setup Request - eNB Name: srsenb02, eNB id: 0x19c
+S1 Setup Request - MCC:001, MNC:01, PLMN: 61712
+S1 Setup Request - TAC 7, B-PLMN 0
+S1 Setup Request - Paging DRX 2
+Sending S1 Setup Response
+Deleting eNB context. eNB Id: 0x19b
 Initial UE message: LIBLTE_MME_MSG_TYPE_ATTACH_REQUEST
 Received Initial UE message -- Attach Request
 Attach request -- M-TMSI: 0x78ed2885
@@ -66,7 +66,7 @@ Received UE Context Release Complete. MME-UE S1AP Id 1
 There are active E-RABs, send release access bearers request
 UE Context Release Completed.
 SCTP Association Shutdown. Association: 20
-Deleting eNB context. eNB Id: 0x19b
+Deleting eNB context. eNB Id: 0x19c
 Releasing UEs context
 No UEs to be released
 

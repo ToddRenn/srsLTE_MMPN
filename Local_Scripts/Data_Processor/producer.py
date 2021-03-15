@@ -4,16 +4,16 @@
 import sys, time
 from kafka import KafkaProducer
 
-server = ['155.98.37.211:9092']
-topic='ue1_csv'
+server = ['155.98.36.82:9092']
+topic=sys.argv[1]
+f=sys.argv[2]
 
 producer = KafkaProducer(bootstrap_servers=server)
-#producer = KafkaProducer(value_serialization=lambda x: x.encode('utf-8'))
 
-while True:
-	with open("Output_Files/ue_metrics.csv","rt") as logfile:
-		for line in logfile:
-			ack = producer.send(topic, line.encode('utf-8'))
-			metadata = ack.get()
-			print(line,end='')
-			time.sleep(1)
+#while True:
+with open("Output_Files/"+f,"rt") as logfile:
+    for line in logfile:
+        ack = producer.send(topic, line.encode('utf-8'))
+        metadata = ack.get()
+        print(line,end="")
+        time.sleep(0.1)

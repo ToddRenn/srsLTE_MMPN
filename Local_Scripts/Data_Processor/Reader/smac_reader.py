@@ -38,7 +38,7 @@ def update_sensor(dict_list,topic):
         with  open(smac_file) as payload:
             r=requests.post(url, data=payload)
 
-def log_reader(log,node,topic):
+def log_reader(log,location,node_id):
     # This function takes as input a string from a log file as well as the
     # topic it comes from (in order to create unique sensor names). The string
     # is parsed for KEY/VALUE pairs from which JSON commands are generated
@@ -78,14 +78,14 @@ def log_reader(log,node,topic):
                         (?P<value>[\d\w]+)''', re.VERBOSE))
     
     # Use if/elif blocks to minimize REGEX analysis/line
-    if "ue" in topic:
+    if "ue" in node_id:
         for rx in ue_rx:
             for m in rx.finditer(log):
-                match_dict[topic+"_"+m.group('key')]=m.group('value')
-    elif "enb" in topic:
+                match_dict[node_id+"_"+m.group('key')]=m.group('value')
+    elif "enb" in node_id:
         for rx in enb_rx:
             for m in rx.finditer(log):
-                match_dict[topic+"_"+m.group('key')]=m.group('value')
+                match_dict[node_id+"_"+m.group('key')]=m.group('value')
         if "connected" in log:
             x=log.split()
             ues.add(x[1])           # Stores a UE which connected to eNB
@@ -94,7 +94,7 @@ def log_reader(log,node,topic):
             ue_id=s[1].strip(".\n")
             if ue_id in ues:
                 ues.remove(ue_id)   # Removes a UE which disconnected from eNB
-    elif "epc" in topic:
+    elif "epc" in node_id:
         for rx in epc_rx:
             for m in rx.finditer(log):
                 if m.group('key') == "IMSI":
@@ -103,15 +103,15 @@ def log_reader(log,node,topic):
                     if m.group('value') in ues:
                         ues.remove(m.group('value'))# Removes inactive UE IMSI
                 else:
-                    match_dict[topic+"_"+m.group('key')]=m.group('value')
+                    match_dict[node_id+"_"+m.group('key')]=m.group('value')
     # Create JSON objects from KEY/VALUE pairs
     for key in match_dict:
-        results.append(custom_dict(key,match_dict.get(key),data, node))
+        results.append(custom_dict(key,match_dict.get(key),data, location))
     # Send off to SMAC
-    update_sensor(results,topic)
+    update_sensor(results,node_id)
     match_dict.clear()
 
-def csv_reader(csv_in,node,topic):
+def csv_reader(csv_in,location,node_id):
     # This function reads in a CSV string, matches it with expected headers,
     # and creates a custom dictionary which represents the JSON SMAC command
     # csv_in: The CSV input string
@@ -125,16 +125,17 @@ def csv_reader(csv_in,node,topic):
     
     # Create our key/value pairs - skip the first column: time
     for i in range(1,len(header)):
-        header[i] = topic+"_"+header[i]     # Custom SMAC sensor name
+        header[i] = node_id+"_"+header[i]     # Custom SMAC sensor name
         metrics[header[i]] = s[i]       # Create/update the dictionary
     # Create custom JSON objects
     for key in metrics:
-        dict_list.append(custom_dict(str(key),str(metrics.get(key)),data, node))
+        dict_list.append(custom_dict(str(key),str(metrics.get(key)),data,
+                                     location))
     # Send them off to SMAC
-    update_sensor(dict_list,topic)
+    update_sensor(dict_list,node_id)
     dict_list.clear()
 
-def custom_dict(key, value, data_dict, node):
+def custom_dict(key, value, data_dict, location):
     custom_dict = data_dict.copy()
     custom_dict["sensor"] = key;
     custom_dict["value"] = value;

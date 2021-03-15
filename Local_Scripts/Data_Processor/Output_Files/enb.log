@@ -1,0 +1,27 @@
+Built in RelWithDebInfo mode using 19.12.0.
+
+---  Software Radio Systems LTE eNodeB  ---
+
+Reading configuration file /etc/srslte/enb.conf...
+Opening 1 RF devices with 1 RF channels...
+[INFO] [UHD] linux; GNU C++ version 7.5.0; Boost_106501; UHD_4.0.0.0-2ubuntu1emulab2
+[INFO] [LOGGING] Fastpath logging disabled at runtime.
+Opening USRP with args: type=x300,master_clock_rate=184.32e6
+[INFO] [X300] X300 initialization sequence...
+[INFO] [X300] Maximum frame size: 1472 bytes.
+[WARNING] [X300] For the 192.168.40.2 connection, UHD recommends a send frame size of at least 8000 for best
+performance, but your configuration will only allow 1472.This may negatively impact your maximum achievable sample rate.
+Check the MTU on the interface and/or the send_frame_size argument.
+[WARNING] [X300] For the 192.168.40.2 connection, UHD recommends a receive frame size of at least 8000 for best
+performance, but your configuration will only allow 1472.This may negatively impact your maximum achievable sample rate.
+Check the MTU on the interface and/or the recv_frame_size argument.
+[INFO] [X300] Radio 1x clock: 184.32 MHz
+Setting frequency: DL=2685.0 Mhz, UL=2565.0 MHz
+Setting Sampling frequency 11.52 MHz
+
+==== eNodeB started ===
+Type <t> to view trace
+
+User 0x46 connected
+User 0x5a connected
+Disconnecting rnti=0x5a.
