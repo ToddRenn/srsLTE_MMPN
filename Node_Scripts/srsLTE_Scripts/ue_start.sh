@@ -64,7 +64,7 @@ tput sgr0
 sudo srsue 2>&1 | ${kaf_cmd} 2> /dev/null &
 
 # Send the ue_metrics.csv
-sleep 20
+sleep 45
 tput setaf 111
 echo "Sending ${NODE_ID} metrics..."
 tput sgr0
