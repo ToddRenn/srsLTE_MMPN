@@ -13,12 +13,12 @@ NODE_TYPE=$(echo "${NODE_TYPE}"|tr '[A-Z]' '[a-z]')
 ############################ Step 1 ###########################
 case ${NODE_TYPE} in
 	"epc")
-		sudo ./epc_start
+		sudo srsLTE_Scripts/epc_start
 		;;
 	"ue")
-		sudo ./srslte_start ue
+		sudo srsLTE_Scripts/srslte_start ue
 		;;
 	"enb")
-		sudo ./srslte_start enb
+		sudo srsLTE_Scripts/srslte_start enb
 		;;
 esac

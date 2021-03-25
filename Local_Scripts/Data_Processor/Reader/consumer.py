@@ -13,11 +13,16 @@ LOC = sys.argv[3]
 CHOICE = sys.argv[4]
 
 # Initialize consumer for given topic
-consumer = KafkaConsumer(bootstrap_servers=[KAF_IP], value_deserializer=lambda x: x.decode('utf-8'))
+consumer = KafkaConsumer(bootstrap_servers=[KAF_IP], \
+                         auto_offset_reset='earliest', \
+                         enable_auto_commit=True, \
+                         group_id=TOPIC, \
+                         value_deserializer=lambda x: x.decode('utf-8'))
 consumer.subscribe(TOPIC)
 
 # Read in all consumer messages
 for msg in consumer:
+    print(msg)
     if "log" in TOPIC:
         NODE_ID=TOPIC.replace('_log','')
         if CHOICE == "1":

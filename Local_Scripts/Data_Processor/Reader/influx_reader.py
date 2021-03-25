@@ -8,12 +8,12 @@ from influxdb_client import InfluxDBClient
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 # Setup InfluxDB parameters
-token = "gIDHwTgATjZcwUjUkdwhl5xCAs0YvxXQ3-FWaOYPOIPC074pekVBZx7C3qrKczea1h5M_Ua1uJpFH1qCGOusYQ=="
+token = "aZDK9aTXD5nikSuPXu7V4yU17rchjXwrnLL14FGOwxVxUhoS6_23azKwlEp3zD0Tp-hKXQ_eVuQlH4To-T14Wg=="
 org = "MMPN"
-bucket = "MONKEY"
+bucket = "Test"
 
 # Initialize client and WRITE/DELETE APIs
-client = InfluxDBClient(url="http://localhost:8086", token=token, org=org)
+client = InfluxDBClient(url="http://155.98.36.129:8086", token=token, org=org)
 write = client.write_api(write_options=SYNCHRONOUS)
 del_client = client.delete_api()
 query_api = client.query_api()
