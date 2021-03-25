@@ -10,7 +10,7 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 # Setup InfluxDB parameters
 token = "gIDHwTgATjZcwUjUkdwhl5xCAs0YvxXQ3-FWaOYPOIPC074pekVBZx7C3qrKczea1h5M_Ua1uJpFH1qCGOusYQ=="
 org = "MMPN"
-bucket = "TEST2"
+bucket = "MONKEY"
 
 # Initialize client and WRITE/DELETE APIs
 client = InfluxDBClient(url="http://localhost:8086", token=token, org=org)
@@ -25,8 +25,8 @@ def init_influx_dict(NODE_ID,LOC):
     dict_list={}
     dict_list['measurement']=NODE_ID
     dict_list['tags']={}
-    dict_list['tags']['Location']=LOC
     dict_list['fields']={}
+    dict_list['fields']['Location']=LOC
     dict_list['time']=str(datetime.utcnow())
     return dict_list
 
@@ -38,7 +38,6 @@ def update_actives(dict_list,LOC,choice,NODE_ID):
         influx_entry={}
         influx_entry['measurement'] = NODE_ID
         influx_entry['tags'] = {}
-        influx_entry['tags']['Location'] = LOC
         influx_entry['tags']['Status'] = 'Active'
         influx_entry['fields'] = dict_list
         influx_entry['time'] = time

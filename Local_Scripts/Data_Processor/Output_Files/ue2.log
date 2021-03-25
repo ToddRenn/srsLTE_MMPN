@@ -1,0 +1,19 @@
+Reading configuration file /etc/srslte/ue.conf...
+
+Built in RelWithDebInfo mode using 19.12.0.
+
+Opening 1 RF devices with 1 RF channels...
+Opening USRP with args: type=b200,master_clock_rate=23.04e6
+Waiting PHY to initialize ... done!
+Attaching UE...
+Searching cell in DL EARFCN=3050, f_dl=2650.0 MHz, f_ul=2530.0 MHz
+.
+Found Cell:  Mode=FDD, PCI=1, PRB=50, Ports=1, CFO=-6.8 KHz
+Found PLMN:  Id=00101, TAC=7
+Random Access Transmission: seq=5, ra-rnti=0x2
+Random Access Complete.     c-rnti=0x5a, ta=5
+RRC Connected
+RF status: O=1, U=0, L=0
+Network attach successful. IP: 172.16.0.3
+Software Radio Systems LTE (srsLTE)
+Enter t to stop trace.

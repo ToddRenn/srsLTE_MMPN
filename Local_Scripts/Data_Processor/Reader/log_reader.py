@@ -94,11 +94,11 @@ def log_reader(log,location,NODE_ID):
                       "+str(m.group('value')))
             ue_init[m.group('key')]=m.group('value')
 
-            if m.group('key') == 'IP':
-                ue_init['IMSI']=
-                auth_info=next(x for x in active_ue if x['IP']==m.group('value'))
-                ue_init = {**ue_init,**auth_info}
-        update(ue_init.copy(),location,'Add',NODE_ID)
+            #if m.group('key') == 'IP':
+                #ue_init['IMSI']=
+                #auth_info=next(x for x in active_ue if x['IP']==m.group('value'))
+                #ue_init = {**ue_init,**auth_info}
+            update(ue_init.copy(),location,'Add',NODE_ID)
 
     elif "enb" in NODE_ID:
         # New eNB initializing, start trigger
