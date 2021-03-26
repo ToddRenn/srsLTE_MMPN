@@ -26,7 +26,7 @@
 
 > ## STEP 4: Spin up srsLTE
 > _NOTE: Set your **node identifier** to be of the form: **[node type][#]** (Ex. ue1)_
-> * For each node (EPC/eNB/UE) in **Node_Scripts/srsLTE_Scripts** run **top_module.sh**
+> * For each node (EPC/eNB/UE) in **Node_Scripts/srsLTE_Scripts** run **srsLTE_top.sh**
 >    * Provide the Kafka server public IP (the value for advertised.listeners in the server.properties file)
 
 > ## STEP 5: Consume/process data locally
