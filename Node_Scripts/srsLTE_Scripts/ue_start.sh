@@ -61,7 +61,8 @@ kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
 tput setaf 111
 echo "Sending ${NODE_ID} log files... "
 tput sgr0
-sudo srsue 2>&1 | ${kaf_cmd} 2> /dev/null &
+#sudo srsue 2>&1 | ${kaf_cmd} 2> /dev/null &
+sudo srsue | ${kaf_cmd}
 
 # Send the ue_metrics.csv
 sleep 45
@@ -70,4 +71,5 @@ echo "Sending ${NODE_ID} metrics..."
 tput sgr0
 topic_csv="--topic ${NODE_ID}_csv"
 kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic_csv} ${server}"
-tail -f -n0 /tmp/ue_metrics.csv | ${kaf_cmd} 2> /dev/null &
+#tail -f -n0 /tmp/ue_metrics.csv | ${kaf_cmd} 2> /dev/null &
+tail -f -n0 /tmp/ue_metrics.csv | ${kaf_cmd} 
