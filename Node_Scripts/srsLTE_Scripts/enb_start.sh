@@ -61,4 +61,4 @@ kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
 tput setaf 111
 echo "Sending ${NODE_ID} log files... "
 tput sgr0
-sudo srsenb 2>&1 | ${kaf_cmd} 2> /dev/null &
+sudo srsenb | ${kaf_cmd} 
