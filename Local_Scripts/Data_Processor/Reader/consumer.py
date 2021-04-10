@@ -2,7 +2,7 @@
 
 from kafka import KafkaConsumer
 import sys
-import smac_reader as srdr
+import c2i_reader as srdr
 import csv_reader as crdr
 import log_reader as lrdr
 
@@ -14,7 +14,7 @@ CHOICE = sys.argv[4]
 
 # Initialize consumer for given topic
 consumer = KafkaConsumer(bootstrap_servers=[KAF_IP], \
-                         auto_offset_reset='earliest', \
+                         auto_offset_reset='smallest', \
                          enable_auto_commit=True, \
                          group_id=TOPIC, \
                          value_deserializer=lambda x: x.decode('utf-8'))
@@ -22,7 +22,7 @@ consumer.subscribe(TOPIC)
 
 # Read in all consumer messages
 for msg in consumer:
-    print(msg)
+#    print(msg)
     if "log" in TOPIC:
         NODE_ID=TOPIC.replace('_log','')
         if CHOICE == "1":

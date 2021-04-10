@@ -103,9 +103,11 @@ def log_reader(log,location,NODE_ID):
     elif "enb" in NODE_ID:
         # New eNB initializing, start trigger
         if "Opening USRP" in log:
+            print("New eNB detected")
             enb_new=True
 
         if "eNodeB started" in log:
+            print("Adding "+NODE_ID+" from "+location+".")
             print(str(enb_init))
             enb_new=False
             update(enb_init,location,'Add',NODE_ID)
@@ -126,12 +128,12 @@ def log_reader(log,location,NODE_ID):
 
         # Start "recording" when a eNB connects
         if "Received S1" in log:
+            print("New eNB detected")
             epc_new_enb = True
             return
 
         # Update active eNBs after new eNB setup finishes
         if "Sending S1" in log:
-            print("Adding eNB")
             epc_new_enb = False
             update(enb_temp.copy(),location,'Add',enb_temp.copy().get('Name'))
             enb_temp.clear()
@@ -139,6 +141,7 @@ def log_reader(log,location,NODE_ID):
 
         if epc_new_enb:
             # Get eNB info
+            print("Retrieving eNB information")
             for m in epc_rx[0].finditer(log):
                 #print("Key: "+str(m.group('key'))+"\tValue: "+str(m.group('value')))
                 enb_temp[m.group('key')]=m.group('value')
@@ -146,6 +149,7 @@ def log_reader(log,location,NODE_ID):
 
         # Start "recording" when a UE connects
         if "SPGW Allocated IP" in log:
+            print("New UE detected")
             for m in epc_rx[1].finditer(log):
                 ue_temp[m.group('key')]=m.group('value')
 
@@ -166,7 +170,7 @@ def log_reader(log,location,NODE_ID):
             print(r_str)
             update(None,location,'Delete',r_str)
 
-        if "Detach request" in log:
+        if "Detach request --" in log:
             s=log.split(" ")
             ue_imsi=s[4].strip("\n")
             print("Removing UE: "+ue_imsi)

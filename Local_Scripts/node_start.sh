@@ -27,7 +27,7 @@ DATA_CTR=$(echo "${DATA_CTR}"|tr '[A-Z]' '[a-z]')
 if [[ "${DATA_CTR}" == "fort" ]]; then
 	ADDR_KAF="${UNAME}@pc${KAFKA_PC}-fort.emulab.net"
 else
-	ADDR_KAF="${UNAME}@pc${KAFKA_PC}.emulab.net"
+	ADDR_KAF="${UNAME}@pc${KAFKA_PC}-meb.emulab.net"
 fi
 
 # Set PC# & location for srsLTE nodes

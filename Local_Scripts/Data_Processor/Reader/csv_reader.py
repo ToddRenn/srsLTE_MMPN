@@ -14,7 +14,6 @@ def csv_reader(csv_in,location,NODE_ID):
 	# Initialize UE if not present
     #if not NODE_ID in ues:
         #init(NODE_ID,location,ues)
-
     influx_data=init(NODE_ID,location)
 
 	# Set the CSV headers
@@ -40,9 +39,10 @@ def csv_reader(csv_in,location,NODE_ID):
             influx_data['fields'][header[i]] = float(s[i])
 
 	# Update the timestamp
-    time = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
-    influx_data['time']=time
+    #time = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    #influx_data['time']=time
+    print(influx_data)
 
 	# Write to InfluxDB
     write.write(bucket,org,influx_data)
-    write.close()	# This flu sh may  or may not be efficient... consider batches
+    #write.close()	# This flu sh may  or may not be efficient... consider batches
