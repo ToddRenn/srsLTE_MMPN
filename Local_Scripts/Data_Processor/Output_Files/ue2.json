@@ -1,0 +1,1 @@
+{'hostname': 'localhost', 'portnum': 9091, 'minval': 0, 'system': 'true', 'version': '2.4', 'units': 'Milliseconds', 'type': 'Int', 'forceEnable': 'true', 'maxval': 63, 'sensor': 'ue2_ul_ta', 'value': '0.0', 'command': 'update-sensor', 'timeout': 5}SYSTEMMONITOR_COMMANDER_TRANSMISSION_COMPLETE

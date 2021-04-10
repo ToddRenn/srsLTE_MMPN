@@ -1,14 +1,14 @@
 #!/bin/bash
-KAF_IP=155.98.36.47
+KAF_IP=155.98.39.10
 
 # Run consumers
 gnome-terminal --tab -- bash -ic "python3 Reader/consumer.py ue1_csv ${KAF_IP} moran 2; exec bash"
 gnome-terminal --tab -- bash -ic "python3 Reader/consumer.py ue1_log ${KAF_IP} moran 2; exec bash"
-gnome-terminal --tab -- bash -ic "python3 Reader/consumer.py enb1_log ${KAF_IP} moran 2; exec bash"
-gnome-terminal --tab -- bash -ic "python3 Reader/consumer.py ue2_csv ${KAF_IP} moran 2; exec bash"
-gnome-terminal --tab -- bash -ic "python3 Reader/consumer.py ue2_log ${KAF_IP} moran 2; exec bash"
-gnome-terminal --tab -- bash -ic "python3 Reader/consumer.py enb2_log ${KAF_IP} moran 2; exec bash"
-gnome-terminal --tab -- bash -ic "python3 Reader/consumer.py epc1_log ${KAF_IP} moran 2; exec bash"
+gnome-terminal --tab -- bash -ic "python3 Reader/consumer.py enb1_log ${KAF_IP} MEB 2; exec bash"
+gnome-terminal --tab -- bash -ic "python3 Reader/consumer.py ue2_csv ${KAF_IP} bookstore 2; exec bash"
+gnome-terminal --tab -- bash -ic "python3 Reader/consumer.py ue2_log ${KAF_IP} bookstore 2; exec bash"
+gnome-terminal --tab -- bash -ic "python3 Reader/consumer.py enb2_log ${KAF_IP} browning 2; exec bash"
+gnome-terminal --tab -- bash -ic "python3 Reader/consumer.py epc1_log ${KAF_IP} browning 2; exec bash"
 
 sleep 2
 

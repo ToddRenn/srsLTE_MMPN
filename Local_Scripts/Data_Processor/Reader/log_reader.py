@@ -162,13 +162,19 @@ def log_reader(log,location,NODE_ID):
             enb_id=s[5].strip("\n")
             print("Removing eNB: "+enb_id)
             enb_to_remove=query_info(bucket, 'id', enb_id)
-            print(enb_to_remove)
-            update(None,location,'Delete',enb_to_remove)
+            r_str="".join(enb_to_remove)
+            print(r_str)
+            update(None,location,'Delete',r_str)
 
         if "Detach request" in log:
             s=log.split(" ")
             ue_imsi=s[4].strip("\n")
             print("Removing UE: "+ue_imsi)
-            ue_to_remove=query_info(bucket, 'IMSI', ue_imsi)
+            ue_ip=query_info(bucket, 'IMSI', ue_imsi)
+            r_str="".join(ue_ip)
+            ue_to_remove=query_info(bucket,'IP',r_str)
             print(ue_to_remove)
-            update(None,location,'Delete',ue_to_remove)
+            for ue in ue_to_remove:
+                ue_str="".join(ue)
+                print("Removing measurement: "+ue_str)
+                update(None,location,'Delete',ue_str)

@@ -1,19 +1,25 @@
+Built in RelWithDebInfo mode using 19.12.0.
+
+
+---  Software Radio Systems EPC  ---
+
+Reading configuration file /etc/srslte/epc.conf...
+HSS Initialized.
+MME S11 Initialized
+MME GTP-C Initialized
+MME Initialized. MCC: 0xf998, MNC: 0xff98
+SPGW GTP-U Initialized.
+SPGW S11 Initialized.
 SP-GW Initialized.
 Received S1 Setup Request.
 S1 Setup Request - eNB Name: srsenb01, eNB id: 0x19b
-S1 Setup Request - MCC:001, MNC:01, PLMN: 61712
-S1 Setup Request - TAC 7, B-PLMN 0
-S1 Setup Request - Paging DRX 2
-Sending S1 Setup Response
-Received S1 Setup Request.
-S1 Setup Request - eNB Name: srsenb02, eNB id: 0x19c
-S1 Setup Request - MCC:001, MNC:01, PLMN: 61713
-S1 Setup Request - TAC 7, B-PLMN 0
+S1 Setup Request - MCC:998, MNC:98, PLMN: 10090633
+S1 Setup Request - TAC 1, B-PLMN 0
 S1 Setup Request - Paging DRX 2
 Sending S1 Setup Response
 Initial UE message: LIBLTE_MME_MSG_TYPE_ATTACH_REQUEST
 Received Initial UE message -- Attach Request
-Attach request -- M-TMSI: 0x78ed2885
+Attach request -- IMSI: 998981234560200
 Attach request -- eNB-UE S1AP Id: 1
 Attach request -- Attach type: 1
 Attach Request -- UE Network Capabilities EEA: 11110000
@@ -22,19 +28,17 @@ Attach Request -- MS Network Capabilities Present: false
 PDN Connectivity Request -- EPS Bearer Identity requested: 0
 PDN Connectivity Request -- Procedure Transaction Id: 1
 PDN Connectivity Request -- ESM Information Transfer requested: false
-UL NAS: Received Identity Response
-ID Response -- IMSI: 001010123456789
-Downlink NAS: Sent Authentication Request
+Downlink NAS: Sending Authentication Request
 UL NAS: Received Authentication Response
-Authentication Response -- IMSI 001010123456789
+Authentication Response -- IMSI 998981234560200
 UE Authentication Accepted.
 Generating KeNB with UL NAS COUNT: 0
 Downlink NAS: Sending NAS Security Mode Command.
 UL NAS: Received Security Mode Complete
-Security Mode Command Complete -- IMSI: 001010123456789
+Security Mode Command Complete -- IMSI: 998981234560200
 Getting subscription information -- QCI 7
 Sending Create Session Request.
-Creating Session Response -- IMSI: 1010123456789
+Creating Session Response -- IMSI: 998981234560200
 Creating Session Response -- MME control TEID: 1
 Received GTP-C PDU. Message type: GTPC_MSG_TYPE_CREATE_SESSION_REQUEST
 SPGW: Allocated Ctrl TEID 1
@@ -43,7 +47,7 @@ SPGW: Allocate UE IP 172.16.0.2
 Received Create Session Response
 Create Session Response -- SPGW control TEID 1
 Create Session Response -- SPGW S1-U Address: 127.0.1.100
-SPGW Allocated IP 172.16.0.2 to IMSI 001010123456789
+SPGW Allocated IP 172.16.0.2 to IMSI 998981234560200
 Adding attach accept to Initial Context Setup Request
 Initial Context Setup Request -- eNB UE S1AP Id 1, MME UE S1AP Id 1
 Initial Context Setup Request -- E-RAB id 5
@@ -54,14 +58,13 @@ Received Initial Context Setup Response
 E-RAB Context Setup. E-RAB id 5
 E-RAB Context -- eNB TEID 0x460003; eNB GTP-U Address 127.0.1.1
 UL NAS: Received Attach Complete
-Unpacked Attached Complete Message. IMSI 1010123456789
+Unpacked Attached Complete Message. IMSI 998981234560200
 Unpacked Activate Default EPS Bearer message. EPS Bearer id 5
 Received GTP-C PDU. Message type: GTPC_MSG_TYPE_MODIFY_BEARER_REQUEST
 Sending EMM Information
-
 Initial UE message: LIBLTE_MME_MSG_TYPE_ATTACH_REQUEST
 Received Initial UE message -- Attach Request
-Attach request -- M-TMSI: 0x78ed2885
+Attach request -- IMSI: 998981234560201
 Attach request -- eNB-UE S1AP Id: 2
 Attach request -- Attach type: 1
 Attach Request -- UE Network Capabilities EEA: 11110000
@@ -70,50 +73,84 @@ Attach Request -- MS Network Capabilities Present: false
 PDN Connectivity Request -- EPS Bearer Identity requested: 0
 PDN Connectivity Request -- Procedure Transaction Id: 1
 PDN Connectivity Request -- ESM Information Transfer requested: false
-UL NAS: Received Identity Response
-ID Response -- IMSI: 001010000445566
-Downlink NAS: Sent Authentication Request
+Downlink NAS: Sending Authentication Request
 UL NAS: Received Authentication Response
-Authentication Response -- IMSI 001010000445566
+Authentication Response -- IMSI 998981234560201
 UE Authentication Accepted.
 Generating KeNB with UL NAS COUNT: 0
 Downlink NAS: Sending NAS Security Mode Command.
 UL NAS: Received Security Mode Complete
-Security Mode Command Complete -- IMSI: 001010000445566
+Security Mode Command Complete -- IMSI: 998981234560201
 Getting subscription information -- QCI 7
 Sending Create Session Request.
-Creating Session Response -- IMSI: 1010000445566
-Creating Session Response -- MME control TEID: 1
+Creating Session Response -- IMSI: 998981234560201
+Creating Session Response -- MME control TEID: 2
 Received GTP-C PDU. Message type: GTPC_MSG_TYPE_CREATE_SESSION_REQUEST
-SPGW: Allocated Ctrl TEID 1
-SPGW: Allocated User TEID 1
+SPGW: Allocated Ctrl TEID 2
+SPGW: Allocated User TEID 2
 SPGW: Allocate UE IP 172.16.0.3
 Received Create Session Response
-Create Session Response -- SPGW control TEID 1
+Create Session Response -- SPGW control TEID 2
 Create Session Response -- SPGW S1-U Address: 127.0.1.100
-SPGW Allocated IP 172.16.0.3 to IMSI 001010000445566
+SPGW Allocated IP 172.16.0.3 to IMSI 998981234560201
 Adding attach accept to Initial Context Setup Request
 Initial Context Setup Request -- eNB UE S1AP Id 2, MME UE S1AP Id 2
 Initial Context Setup Request -- E-RAB id 5
-Initial Context Setup Request -- S1-U TEID 0x1. IP 127.0.1.100 
-Initial Context Setup Request -- S1-U TEID 0x1. IP 127.0.1.100 
+Initial Context Setup Request -- S1-U TEID 0x2. IP 127.0.1.100 
+Initial Context Setup Request -- S1-U TEID 0x2. IP 127.0.1.100 
 Initial Context Setup Request -- QCI 7 
 Received Initial Context Setup Response
 E-RAB Context Setup. E-RAB id 5
-E-RAB Context -- eNB TEID 0x460003; eNB GTP-U Address 127.0.1.1
+E-RAB Context -- eNB TEID 0x470003; eNB GTP-U Address 127.0.1.1
 UL NAS: Received Attach Complete
-Unpacked Attached Complete Message. IMSI 1010000445566
+Unpacked Attached Complete Message. IMSI 998981234560201
 Unpacked Activate Default EPS Bearer message. EPS Bearer id 5
 Received GTP-C PDU. Message type: GTPC_MSG_TYPE_MODIFY_BEARER_REQUEST
 Sending EMM Information
-UL NAS: Detach Request
-Detach request -- IMSI 001010123456789
-Received GTP-C PDU. Message type: GTPC_MSG_TYPE_DELETE_SESSION_REQUEST
-Received UE Context Release Complete. MME-UE S1AP Id 1
+Initial UE message: LIBLTE_MME_MSG_TYPE_ATTACH_REQUEST
+Received Initial UE message -- Attach Request
+Attach request -- IMSI: 432113903714156
+Attach request -- eNB-UE S1AP Id: 3
+Attach request -- Attach type: 2
+Attach Request -- UE Network Capabilities EEA: 11110000
+Attach Request -- UE Network Capabilities EIA: 11110000
+Attach Request -- MS Network Capabilities Present: true
+PDN Connectivity Request -- EPS Bearer Identity requested: 0
+PDN Connectivity Request -- Procedure Transaction Id: 4
+PDN Connectivity Request -- ESM Information Transfer requested: false
+User not found at HSS. IMSI: 432113903714156
+User not found. IMSI 432113903714156
+Received UE Context Release Request. MME-UE S1AP Id 1
 There are active E-RABs, send release access bearers request
+Received GTP-C PDU. Message type: GTPC_MSG_TYPE_RELEASE_ACCESS_BEARERS_REQUEST
+UE is ECM IDLE.
+Received UE Context Release Complete. MME-UE S1AP Id 1
+UE is not ECM connected. No need to release S1-U. MME UE S1AP Id 1
 UE Context Release Completed.
-SCTP Association Shutdown. Association: 20
-Deleting eNB context. eNB Id: 0x19c
+Received UE Context Release Request. MME-UE S1AP Id 2
+There are active E-RABs, send release access bearers request
+Received GTP-C PDU. Message type: GTPC_MSG_TYPE_RELEASE_ACCESS_BEARERS_REQUEST
+UE is ECM IDLE.
+Received UE Context Release Complete. MME-UE S1AP Id 2
+UE is not ECM connected. No need to release S1-U. MME UE S1AP Id 2
+UE Context Release Completed.
+Received UE Context Release Request. MME-UE S1AP Id 524290
+No UE context to release found. MME-UE S1AP Id: 524290
+Initial UE message: LIBLTE_MME_MSG_TYPE_DETACH_REQUEST
+Received Initial UE message -- Detach Request
+Detach Request -- S-TMSI 0x2a06f04a
+Detach Request -- eNB UE S1AP Id 4
+Received. M-TMSI 0x2a06f04a
+Received GTP-C PDU. Message type: GTPC_MSG_TYPE_DELETE_SESSION_REQUEST
+SCTP Association Shutdown. Association: 2
+Deleting eNB context. eNB Id: 0x19b
 Releasing UEs context
-No UEs to be released
+Releasing UE ECM context. UE-MME S1AP Id: 4
+Releasing UE ECM context. UE-MME S1AP Id: 0
+Received GTP-C PDU. Message type: GTPC_MSG_TYPE_DELETE_SESSION_REQUEST
+^CDeleting UE EMM context. IMSI: 998981234560200
+Deleting UE EMM context. IMSI: 998981234560201
+Deleting UE context in HSS. IMSI: 998981234560200
+Deleting UE context in HSS. IMSI: 998981234560201
+
 

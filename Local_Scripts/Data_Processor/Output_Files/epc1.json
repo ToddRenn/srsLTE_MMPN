@@ -1,1 +1,1 @@
-{'hostname': 'localhost', 'portnum': 9091, 'system': 'true', 'version': '2.4', 'units': 'None', 'type': 'String', 'forceEnable': 'true', 'sensor': 'epc1_MNC', 'value': '0xff01', 'command': 'update-sensor', 'timeout': 5}SYSTEMMONITOR_COMMANDER_TRANSMISSION_COMPLETE
+{'hostname': 'localhost', 'portnum': 9091, 'system': 'true', 'version': '2.4', 'units': 'None', 'type': 'String', 'forceEnable': 'true', 'sensor': 'epc1_MNC', 'value': '0xff98', 'command': 'update-sensor', 'timeout': 5}SYSTEMMONITOR_COMMANDER_TRANSMISSION_COMPLETE

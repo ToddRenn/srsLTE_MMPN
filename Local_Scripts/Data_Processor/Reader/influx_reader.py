@@ -8,12 +8,13 @@ from influxdb_client import InfluxDBClient
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 # Setup InfluxDB parameters
-token = "aZDK9aTXD5nikSuPXu7V4yU17rchjXwrnLL14FGOwxVxUhoS6_23azKwlEp3zD0Tp-hKXQ_eVuQlH4To-T14Wg=="
+token = "IcWoJ5diJfRtOXxoOgh0OzKpbQQjGOBxyH3EksF6E6-sF-WbUZRMsfha51y4VDTNu_bk4beZpOIA6rhHaPbHhg=="
 org = "MMPN"
-bucket = "Test"
+bucket = "srsLTE"
+url = "http://155.98.37.212:8086"
 
 # Initialize client and WRITE/DELETE APIs
-client = InfluxDBClient(url="http://155.98.36.129:8086", token=token, org=org)
+client = InfluxDBClient(url=url, token=token, org=org)
 write = client.write_api(write_options=SYNCHRONOUS)
 del_client = client.delete_api()
 query_api = client.query_api()
@@ -45,18 +46,17 @@ def update_actives(dict_list,LOC,choice,NODE_ID):
         write.write(bucket,org,influx_entry)
         write.close()
     elif choice == 'Delete':
-        arg='_measurement='+NODE_ID
+        arg='_measurement="'+NODE_ID+'"'
         del_client.delete('1970-01-01T00:00:00Z',time,arg,bucket=bucket,org=org)
     else:
         return
 
 def query_info(bucket, field,  value):
-    q = query_api.query('from(bucket: "'+bucket+'") \
-                    |> range(start: -60m) \
+    rlist=set()
+    q = query_api.query_stream('from(bucket: "'+bucket+'") \
+                    |> range(start: -60d) \
                     |> filter(fn: (r) => r["_field"] == "'+field+'" \
                     and r["_value"] == "'+value+'")')
-    for tables in q:
-        for row in tables:
-            rlist=[row.get_measurement()]
-        return rlist[0]
-
+    for record in q:
+        rlist.add(record.get_measurement())
+    return rlist

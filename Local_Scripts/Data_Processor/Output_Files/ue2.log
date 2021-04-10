@@ -3,17 +3,39 @@ Reading configuration file /etc/srslte/ue.conf...
 Built in RelWithDebInfo mode using 19.12.0.
 
 Opening 1 RF devices with 1 RF channels...
+[INFO] [UHD] linux; GNU C++ version 7.5.0; Boost_106501; UHD_4.0.0.0-2ubuntu1emulab2
+[INFO] [LOGGING] Fastpath logging disabled at runtime.
+[INFO] [B200] Loading firmware image: /usr/share/uhd/images/usrp_b200_fw.hex...
 Opening USRP with args: type=b200,master_clock_rate=23.04e6
+[INFO] [B200] Detected Device: B210
+[INFO] [B200] Loading FPGA image: /usr/share/uhd/images/usrp_b210_fpga.bin...
+[INFO] [B200] Operating over USB 3.
+[INFO] [B200] Detecting internal GPSDO.... 
+[INFO] [GPS] No GPSDO found
+[INFO] [B200] Initialize CODEC control...
+[INFO] [B200] Initialize Radio control...
+[INFO] [B200] Performing register loopback test... 
+[INFO] [B200] Register loopback test passed
+[INFO] [B200] Performing register loopback test... 
+[INFO] [B200] Register loopback test passed
+[INFO] [B200] Asking for clock rate 23.040000 MHz... 
+[INFO] [B200] Actually got clock rate 23.040000 MHz.
 Waiting PHY to initialize ... done!
 Attaching UE...
-Searching cell in DL EARFCN=3050, f_dl=2650.0 MHz, f_ul=2530.0 MHz
+Searching cell in DL EARFCN=2800, f_dl=2625.0 MHz, f_ul=2505.0 MHz
 .
-Found Cell:  Mode=FDD, PCI=1, PRB=50, Ports=1, CFO=-6.8 KHz
-Found PLMN:  Id=00101, TAC=7
-Random Access Transmission: seq=5, ra-rnti=0x2
-Random Access Complete.     c-rnti=0x5a, ta=5
-RRC Connected
+Found Cell:  Mode=FDD, PCI=1, PRB=25, Ports=1, CFO=-6.7 KHz
 RF status: O=1, U=0, L=0
+Found PLMN:  Id=99898, TAC=1
+Random Access Transmission: seq=36, ra-rnti=0x2
+Random Access Complete.     c-rnti=0x47, ta=5
+RRC Connected
 Network attach successful. IP: 172.16.0.3
 Software Radio Systems LTE (srsLTE)
-Enter t to stop trace.
+Received RRC Connection Release
+RRC IDLE
+^CStopping srsUE... Press Ctrl+C 9 more times to force stop
+Random Access Transmission: seq=28, ra-rnti=0x2
+Random Access Complete.     c-rnti=0x61, ta=5
+RRC Connected
+
