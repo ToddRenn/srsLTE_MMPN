@@ -8,12 +8,12 @@ from influxdb_client import InfluxDBClient
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 # Setup InfluxDB parameters
-token = "13Ygwlo1m4qfpobAL9HMHyfQqh-nhlKDq-Vls3pum4c66qwyjkKBad758rX8a_btVWek3GiiVV1jpRWNixuDBA=="
+token = "EPRdlbJg8-7X8S_QhYYIYdjaQE-B9fEWU6e9HTtlliZWjDorOkEF6fjN7J6gc6b0Bew4gj-9hRWCn_g5EDcwCQ=="
 org = "MMPN"
 bucket = "srsLTE"
 
 # Initialize client and WRITE/DELETE APIs
-client = InfluxDBClient(url="http://155.98.37.201:8086", token=token)
+client = InfluxDBClient(url="http://155.98.37.202:8086", token=token, org=org)
 write = client.write_api(write_options=SYNCHRONOUS)
 del_client = client.delete_api()
 query_api = client.query_api()
@@ -32,7 +32,7 @@ def init_influx_dict(NODE_ID,LOC):
 
 def update_actives(dict_list,LOC,choice,NODE_ID):
     global bucket, org
-    #time = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    time = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
 
     if choice == 'Add':
         influx_entry={}
