@@ -26,6 +26,9 @@
 
 > ## STEP 4: Spin up srsLTE
 > _NOTE: Set your **node identifier** to be of the form: **[node type][#]** (Ex. ue1)_
+> * For each UE
+>    * On the EPC node: add entries for distinct **keys** and **IMSIs** in **/etc/srslte/user_db.csv**
+>    * On each UE: change the key and IMSI to ensure there are **no duplicates**
 > * For each node (EPC/eNB/UE) in **Node_Scripts/srsLTE_Scripts** run **srsLTE_top.sh**
 >    * Provide the Kafka server public IP (the value for advertised.listeners in the server.properties file)
 
