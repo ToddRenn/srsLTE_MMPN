@@ -23,6 +23,7 @@
 >     * **Install_dependencies.sh**
 >     * **Kafka_Scripts/kafka _up.sh** – This starts ZooKeeper/Kafka daemons. **kafka_down.sh** terminates the servers.
 >     * **Kafka_Scripts/kafka_create_topics.sh** – This creates a list of topics from user-input
+>     * ***Test
 
 > ## STEP 4: Spin up srsLTE
 > _NOTE: Set your **node identifier** to be of the form: **[node type][#]** (Ex. ue1)_
