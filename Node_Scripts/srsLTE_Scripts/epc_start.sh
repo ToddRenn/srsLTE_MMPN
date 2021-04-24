@@ -17,4 +17,4 @@ topicName="${NODE_ID}_log"
 server="--bootstrap-server ${KAF_IP}:9092"
 topic="--topic ${topicName}"
 kaf_cmd="../../Kafka/bin/kafka-console-producer.sh ${topic} ${server}"
-sudo srsepc | ${kaf_cmd}
+sudo srsepc 2>&1 | ${kaf_cmd} 2> /dev/null &
