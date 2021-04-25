@@ -5,7 +5,7 @@
 # MMPN srsLTE Remote Sensor Guide
 > ## STEP 1: Reserve Resources
 >
-> * Reserve srsLTE experiment resources  **srsLTE_Over_The_Air** profile
+> * Reserve srsLTE experiment resources  **ota_srslte** profile
 > * Reserve a PC with **single-pc** profile
 >
 
