@@ -36,11 +36,7 @@
 >    * **Node_Scripts/srsLTE_Scripts** run **srsLTE_top.sh**
 >    * Provide the Kafka server public IP (the value for advertised.listeners in the server.properties file)
 
-> ## STEP 5: Consume/process data locally
-> * In **Local_Scripts/Data_Processor** run **consumer_top.sh** and specify the Kafka server IP
->    * This script creates a consumer for each topic and reads in the log files
-
-> ## STEP 6: Visualize data in InfluxDB
+> ## STEP 5: Setup InfluxDB for visualization
 > * Login to the setup page using **port 8086** at the IP of the node running InfluxDB (Kafka server node by default)
 > * Setup basic credentials for this database (username, password, name of DB)
 > * In **Local_Scripts/Data_Processor/Reader/influx_reader.py** change the _token_, _org_, and _bucket_ variables
@@ -50,4 +46,8 @@
 > * In InfluxDB GUI under **Boards**
 >   * Import the UE/eNB dashboards
 >     * Create Dashboard > Import Dashboard
->       * Dashboard JSON files are in **InfluxDB/** as **enb_dash.json** and **ue_dash.json**
+>       * Dashboard JSON files are in **InfluxDB/** as **enb_dash.json** and **ue_dash.json**       
+
+> ## STEP 6: Consume/process data locally
+> * In **Local_Scripts/Data_Processor** run **consumer_top.sh** and specify the Kafka server IP
+>    * This script creates a consumer for each topic and reads in the log files
