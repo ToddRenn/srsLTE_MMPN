@@ -19,6 +19,7 @@
 
 > ## STEP 3: Spin up Kafka server
 > _NOTE: By default, log retention is 1 minute. Edit **log.retention.ms** in **Kafka/config/server.properties** file to change this._
+> * _Due to networking issues on POWDER, run this command:_ **sudo ip route add 155.98.47.0/24 via 155.98.36.204**
 > * In **Node_Scripts** run in order:
 >     * **Install_dependencies.sh**
 >       * If choosing to run InfluxDB on the same node, the option to do so is here
