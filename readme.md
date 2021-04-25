@@ -3,11 +3,18 @@
 </p>
 
 # MMPN srsLTE Remote Sensor Guide
-> ## STEP 1: Reserve Resources
+> ## STEP 0: Reserve POWDER Resources
 >
-> * Reserve srsLTE experiment resources  **ota_srslte** profile
-> * Reserve a PC with **single-pc** profile
->
+> * BARE MINIMUM
+>   * 1 d740/d430 compute node
+>   * 1 x310 SDR (ideally browning cellsdr-x310)
+>   * 1 B210 SDR (ideally bookstore)
+>   * UL Frequency Range (ideally 2500-2510 MHz)
+>   * DL Frequency Range (ideally 2620-2630 MHz)Reserve srsLTE experiment resources  
+
+> ## STEP 1: Setup Experiment Profiles
+> * **ota_srslte** profile
+> * **single-pc** profile
 
 > ## STEP2: Connect to Nodes
 >
