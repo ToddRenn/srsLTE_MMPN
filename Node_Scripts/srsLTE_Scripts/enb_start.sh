@@ -9,14 +9,6 @@
 parent=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
 cd "${parent}"
 
-############################ Cleanup ###########################
-for pid in $(ps ax|grep srsenb|grep -v grep|awk '{print $1}'); do
-	sudo kill -9 $pid
-done
-for pid in $(ps ax|grep ConsoleProducer|grep -v grep|awk '{print $1}'); do
-	sudo kill -9 $pid
-done
-
 ############################ Step 1 ############################
 # Set variables
 
